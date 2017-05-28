@@ -1,0 +1,16 @@
+#functionMenuTabPane {
+    -fx-border-style: solid;
+    -fx-border-color: grey;
+}
+
+.tab-flow-pane {
+    -fx-hgap: 5.0;
+    -fx-vgap: 5.0;
+    -fx-padding: 5.0;
+}
+
+.fun-menu-button {
+    -fx-content-display: top;
+    -fx-pref-height: 80.0;
+    -fx-pref-width: 70.0;
+}

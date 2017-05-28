@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<GridPane id="mainGridPane" fx:id="mainGridPane" prefHeight="541.0" prefWidth="545.0" stylesheets="/css/manager/GearManager.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.manager.GearManagerController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="80.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" prefHeight="30"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="NEVER" prefHeight="50"/>
+        <RowConstraints vgrow="NEVER" prefHeight="35"/>
+    </rowConstraints>
+    <GridPane styleClass="content-pane">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" halignment="CENTER"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="55.0" halignment="CENTER"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" halignment="CENTER"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0" halignment="CENTER"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints valignment="CENTER" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <ChoiceBox id="queryItemChoiceBox" fx:id="queryItemChoiceBox" value="编号">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="编号"/>
+                    <String fx:value="名称"/>
+                    <String fx:value="类型"/>
+                    <String fx:value="齿数"/>
+                    <String fx:value="模数"/>
+                    <String fx:value="压力角"/>
+                    <String fx:value="螺旋角"/>
+                    <String fx:value="齿顶高"/>
+                    <String fx:value="齿根高"/>
+                </FXCollections>
+            </items>
+            <tooltip>
+                <Tooltip text="选择查找项"/>
+            </tooltip>
+        </ChoiceBox>
+        <TextField fx:id="queryItemTextField" GridPane.columnIndex="1" styleClass="select-pane-item"/>
+        <Button fx:id="queryButton" text="查找" GridPane.columnIndex="2" styleClass="select-pane-item"/>
+        <Button fx:id="queryAllGearsButton" text="显示全部" GridPane.columnIndex="3" styleClass="select-pane-item">
+        </Button>
+    </GridPane>
+    <TableView fx:id="gearTableView" style="-fx-background-color: cornflowerblue" GridPane.rowIndex="1" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="gearIdItem" text="编号"/>
+            <TableColumn fx:id="gearNameItem" text="名称"/>
+            <TableColumn fx:id="gearTypeItem" text="类型"/>
+            <TableColumn fx:id="gearZItem" text="齿数"/>
+            <TableColumn fx:id="GearMnItem" text="模数"/>
+            <TableColumn fx:id="GearPressureAngleItem" text="压力角"/>
+            <TableColumn fx:id="GearHelixAngleItem" text="螺旋角"/>
+            <TableColumn fx:id="gearHaItem" text="齿顶高"/>
+            <TableColumn fx:id="gearHfItem" text="齿根高"/>
+            <TableColumn fx:id="gearNoteItem" text="备注"/>
+        </columns>
+    </TableView>
+    
+    
+    <Pagination id="pagination" fx:id="pagination" pageCount="100" GridPane.rowIndex="2" styleClass="content-pane"/>
+    
+    <GridPane GridPane.rowIndex="3">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER"/>
+        </rowConstraints>
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" top="2.0"/>
+        </GridPane.margin>
+        <Button fx:id="queryMeasurementButton" text="查询测量信息" GridPane.columnIndex="0"/>
+        <Button fx:id="queryInstrumentButton" text="查询仪器信息" GridPane.columnIndex="1"/>
+        <Button fx:id="queryMatchButton" text="查询配对历史" GridPane.columnIndex="2"/>
+    </GridPane>
+    <GridPane styleClass="content-pane" GridPane.columnIndex="1" GridPane.rowSpan="4">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints vgrow="ALWAYS"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+            <RowConstraints prefHeight="40" vgrow="NEVER"/>
+            <RowConstraints prefHeight="28" vgrow="NEVER"/>
+        </rowConstraints>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0"/>
+        </padding>
+        <Label text="参数" GridPane.rowIndex="0"/>
+        <ImageView id="gearQrImageView" fx:id="gearQrImageView" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: blue;-fx-border-style: solid">
+            <GridPane.margin>
+                <Insets left="1.0"/>
+            </GridPane.margin>
+            <image>
+                <Image url="/img/icons/aaa.png"/>
+            </image>
+        </ImageView>
+        <Label text="二维码" GridPane.rowIndex="1"/>
+        <Label text="编号" GridPane.rowIndex="2"/>
+        <Label text="名称" GridPane.rowIndex="3"/>
+        <Label text="类型" GridPane.rowIndex="4"/>
+        <Label text="齿数" GridPane.rowIndex="5"/>
+        <Label text="模数" GridPane.rowIndex="6"/>
+        <Label text="压力角" GridPane.rowIndex="7"/>
+        <Label text="螺旋角" GridPane.rowIndex="8"/>
+        <Label text="齿顶高" GridPane.rowIndex="9"/>
+        <Label text="齿根高" GridPane.rowIndex="10"/>
+        <Label text="值" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        
+        <TextField fx:id="gearIdTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="para-text-field"/>
+        <TextField fx:id="gearNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="para-text-field"/>
+        <TextField fx:id="gearTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="para-text-field"/>
+        <TextField fx:id="gearZTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="para-text-field"/>
+        <TextField fx:id="gearMnTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="para-text-field"/>
+        <TextField fx:id="gearPressureAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" styleClass="para-text-field"/>
+        <TextField fx:id="gearHelixAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" styleClass="para-text-field"/>
+        <TextField fx:id="gearHaTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" styleClass="para-text-field"/>
+        <TextField fx:id="gearHfTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" styleClass="para-text-field"/>
+        <Label text="备注" GridPane.rowIndex="11"/>
+        <TextArea fx:id="gearNoteTextArea" GridPane.columnSpan="2" GridPane.rowIndex="12"/>
+        <HBox id="gearOperateButtonBox" GridPane.columnSpan="2" GridPane.rowIndex="13">
+            <Button fx:id="addGearButton" onAction="#addGearButtonOnAction" text="添加"/>
+            <Button fx:id="updateGearButton" onAction="#updateGearButtonOnAction" text="修改"/>
+            <Button fx:id="deleteGearButton" onAction="#deleteGearButtonOnAction" text="删除"/>
+        </HBox>
+    </GridPane>
+</GridPane>

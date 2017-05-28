@@ -1,0 +1,42 @@
+#mainGridPane {
+    -fx-hgap: 5.0;
+    -fx-vgap: 5.0;
+}
+
+#buttonGridPane {
+    -fx-vgap: 5.0;
+    -fx-min-width: 100;
+    /*-fx-border-color: #332d26;*/
+    /*-fx-border-style: solid;*/
+}
+
+#qrImageView {
+    -fx-pref-width: 150.0;
+    -fx-pref-height: 150.0;
+}
+
+#paraGridPane {
+    -fx-vgap: 5.0;
+    -fx-hgap: 5.0;
+    -fx-padding: 5.0;
+    -fx-border-color: #332d26;
+    -fx-border-style: solid;
+}
+
+.para-text-field {
+    -fx-pref-height: 20.0;
+    -fx-font-size: 12;
+}
+
+#chart {
+    -fx-border-style: solid;
+    -fx-border-color: blueviolet;
+}
+
+#pagination {
+    -fx-page-information-visible: false;
+}
+
+.operate-button {
+    -fx-max-width: Infinity;
+}

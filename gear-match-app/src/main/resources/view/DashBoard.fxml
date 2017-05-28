@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.DashBoardController">
+    <Label layoutX="28.0" layoutY="146.0" text="主功能做完后再做仪表盘页面">
+        <font>
+            <Font size="43.0"/>
+        </font>
+    </Label>
+</AnchorPane>

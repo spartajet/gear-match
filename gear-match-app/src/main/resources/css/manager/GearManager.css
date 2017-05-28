@@ -1,0 +1,49 @@
+
+.select-pane-item {
+    -fx-padding: 5.0;
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+    -fx-pref-width: Infinity;
+}
+
+#queryItemChoiceBox {
+    -fx-pref-height: 28.0;
+    -fx-pref-width: Infinity;
+}
+
+#tableViewPane {
+    -fx-border-style: solid;
+    -fx-border-color: grey;
+}
+
+#pagination {
+    -fx-page-information-visible: false;
+}
+
+.content-pane {
+    -fx-border-style: solid;
+    -fx-border-color: #9c9c9c;
+}
+
+.para-text-field {
+    -fx-pref-height: 27;
+    -fx-font-size: 12;
+}
+
+#gearOperateButtonBox {
+    -fx-spacing: 15.0;
+    -fx-alignment: center;
+}
+
+#gearQrImageView {
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+}
+
+#mainGridPane {
+    -fx-hgap: 3.0;
+    -fx-vgap: 3.0;
+    -fx-border-color: blueviolet;
+    -fx-border-style: solid;
+    -fx-border-insets: 3.0;
+}

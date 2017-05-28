@@ -1,0 +1,20 @@
+${AnsiColor.BRIGHT_YELLOW}
+  ######   ########    ###    ######## 
+ ##    ##  ##         ## ##   ##     ##
+ ##        ##        ##   ##  ##     ##
+ ##   #### ######   ##     ## ######## 
+ ##    ##  ##       ######### ##   ##  
+ ##    ##  ##       ##     ## ##    ## 
+  ######   ######## ##     ## ##     ##
+
+ ##     ##    ###    ########  ######  ##     ##
+ ###   ###   ## ##      ##    ##    ## ##     ##
+ #### ####  ##   ##     ##    ##       ##     ##
+ ## ### ## ##     ##    ##    ##       #########
+ ##     ## #########    ##    ##       ##     ##
+ ##     ## ##     ##    ##    ##    ## ##     ##
+ ##     ## ##     ##    ##     ######  ##     ##
+${AnsiColor.BRIGHT_BLUE}
+::: Project (version:${application.version}) :::             ＼(^O^)／    Spring-Boot ${spring-boot.version}
+Gear Match Start (developed by Guo Xiaozhong in BPL)
+${AnsiColor.BLACK}

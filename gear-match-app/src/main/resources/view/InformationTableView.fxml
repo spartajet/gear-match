@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="bottomBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.InformationTableViewController">
+    <TableView fx:id="infoTableView">
+        <columns>
+            <TableColumn fx:id="serialColumn" text="序号"/>
+            <TableColumn fx:id="dateColumn" text="时间"/>
+            <TableColumn fx:id="infoColumn" text="信息"/>
+        </columns>
+    </TableView>
+</VBox>

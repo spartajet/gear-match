@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.MainStageController">
+    <top>
+        <MenuBar fx:id="mainMenuBar" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem text="Close"/>
+                    </items>
+                </Menu>
+                <Menu text="Edit">
+                    <items>
+                        <MenuItem text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu text="Help">
+                    <items>
+                        <MenuItem fx:id="aboutMenuItem" onAction="#onAboutMenuItem" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <GridPane fx:id="centerGridPane">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="15.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="85.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="80.0" vgrow="SOMETIMES"/>
+                <RowConstraints percentHeight="20.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <TabPane fx:id="mainTabPane" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            </TabPane>
+        </GridPane>
+    
+    </center>
+</BorderPane>
