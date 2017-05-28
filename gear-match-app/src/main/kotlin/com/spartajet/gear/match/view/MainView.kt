@@ -4,6 +4,7 @@ import com.spartajet.gear.match.style.MainViewStyle.Companion.fun_menu_button
 import com.spartajet.gear.match.style.MainViewStyle.Companion.function_menu_tabpane
 import com.spartajet.gear.match.style.MainViewStyle.Companion.tab_flow_pane
 import javafx.geometry.Side
+import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import javafx.scene.paint.Color
 import tornadofx.*
@@ -14,6 +15,8 @@ import tornadofx.*
  * @email spartajet.guo@gmail.com
  */
 class MainView : View("齿轮配对系统") {
+    val dashBoardView: DashBoardView by inject()
+    val mainTabPane = tabpane()
     override val root = borderpane {
         top {
             menubar {
@@ -50,11 +53,15 @@ class MainView : View("齿轮配对系统") {
                 tab("贝叶斯配对") { }
             }
         }
-        center {
-            val mainTabPane = tabpane {
-                style { backgroundColor += Color.RED }
-            }
+        center = mainTabPane
+    }
+
+    init {
+        val dashTab: Tab = Tab("欢迎界面")
+        with(dashTab) {
+            dashTab.content = dashBoardView.root
         }
+        mainTabPane.tabs.add(dashTab)
     }
 }
 
