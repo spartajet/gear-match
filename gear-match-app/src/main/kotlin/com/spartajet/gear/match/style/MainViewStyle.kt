@@ -32,7 +32,7 @@ class MainViewStyle : Stylesheet() {
         function_menu_tabpane {
             borderStyle += (BorderStrokeStyle.SOLID)
             borderColor += box(Color.GREY)
-
+            prefWidth = 190.px
         }
     }
 

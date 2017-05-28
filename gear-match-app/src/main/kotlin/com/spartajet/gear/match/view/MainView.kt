@@ -6,7 +6,6 @@ import com.spartajet.gear.match.style.MainViewStyle.Companion.tab_flow_pane
 import javafx.geometry.Side
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
-import javafx.scene.paint.Color
 import tornadofx.*
 
 /**
@@ -32,9 +31,6 @@ class MainView : View("齿轮配对系统") {
         }
         left {
             tabpane {
-                style {
-                    prefWidth = 190.px
-                }
                 tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
                 addClass(function_menu_tabpane)
                 side = Side.LEFT
@@ -42,10 +38,12 @@ class MainView : View("齿轮配对系统") {
                     flowpane {
                         button("齿轮管理", graphic = imageview("/img/function/manager/gear_manage.png")) {
                             addClass(fun_menu_button)
+                            action { showGearManager() }
                         }
                         addClass(tab_flow_pane)
                         button("哈量测量", graphic = imageview("/img/function/manager/instrument_manage.png")) {
                             addClass(fun_menu_button)
+                            action { showHaLiangMeasure() }
                         }
                     }
                 }
@@ -62,6 +60,14 @@ class MainView : View("齿轮配对系统") {
             dashTab.content = dashBoardView.root
         }
         mainTabPane.tabs.add(dashTab)
+    }
+
+    private fun showGearManager() {
+
+    }
+
+    private fun showHaLiangMeasure() {
+
     }
 }
 
