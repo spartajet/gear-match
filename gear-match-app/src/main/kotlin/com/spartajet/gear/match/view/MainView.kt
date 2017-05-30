@@ -3,6 +3,7 @@ package com.spartajet.gear.match.view
 import com.spartajet.gear.match.style.MainViewStyle.Companion.fun_menu_button
 import com.spartajet.gear.match.style.MainViewStyle.Companion.function_menu_tabpane
 import com.spartajet.gear.match.style.MainViewStyle.Companion.tab_flow_pane
+import com.spartajet.gear.match.view.manager.GearManagerView
 import javafx.geometry.Side
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -14,8 +15,15 @@ import tornadofx.*
  * @email spartajet.guo@gmail.com
  */
 class MainView : View("齿轮配对系统") {
+
     val dashBoardView: DashBoardView by inject()
+    val gearManagerView: GearManagerView by inject()
+
     val mainTabPane = tabpane()
+    //    lateinit var gearManagerTab: Tab
+    var isShowGearManageTab: Boolean = false
+
+
     override val root = borderpane {
         top {
             menubar {
@@ -57,13 +65,21 @@ class MainView : View("齿轮配对系统") {
     init {
         val dashTab: Tab = Tab("欢迎界面")
         with(dashTab) {
-            dashTab.content = dashBoardView.root
+            content = dashBoardView.root
         }
         mainTabPane.tabs.add(dashTab)
     }
 
     private fun showGearManager() {
-
+        if (isShowGearManageTab) return
+        val gearManagerTab = Tab("齿轮管理")
+        with(gearManagerTab) {
+            content = gearManagerView.root
+            setOnClosed { isShowGearManageTab = false }
+        }
+        mainTabPane.tabs.add(gearManagerTab)
+        mainTabPane.selectionModel.select(gearManagerTab)
+        isShowGearManageTab = true
     }
 
     private fun showHaLiangMeasure() {

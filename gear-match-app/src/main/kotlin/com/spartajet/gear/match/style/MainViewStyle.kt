@@ -3,7 +3,10 @@ package com.spartajet.gear.match.style
 import javafx.scene.control.ContentDisplay
 import javafx.scene.layout.BorderStrokeStyle
 import javafx.scene.paint.Color
-import tornadofx.*
+import tornadofx.Stylesheet
+import tornadofx.box
+import tornadofx.cssclass
+import tornadofx.px
 
 /**
  * @description
@@ -35,5 +38,4 @@ class MainViewStyle : Stylesheet() {
             prefWidth = 190.px
         }
     }
-
 }
