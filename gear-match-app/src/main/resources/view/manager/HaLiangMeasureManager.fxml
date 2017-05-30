@@ -8,7 +8,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<GridPane id="mainGridPane" fx:id="mainGridPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.manager.HaLiangMeasureManagerController" stylesheets="/css/manager/HaLiangMeasureManager.css">
+<GridPane id="mainGridPane" fx:id="mainGridPane" xmlns="http://javafx.com/javafx/8.0.111"
+          xmlns:fx="http://javafx.com/fxml/1" stylesheets="/css/manager/HaLiangMeasureManager.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES"/>
         <ColumnConstraints hgrow="NEVER" prefWidth="150.0"/>
@@ -19,167 +20,199 @@
         <RowConstraints prefHeight="25.0" vgrow="NEVER"/>
         <RowConstraints prefHeight="200.0" vgrow="NEVER"/>
     </rowConstraints>
-    <children>
-        <TableView id="tableView" fx:id="tableView">
-            <columns>
-                <TableColumn prefWidth="75.0" text="测量 ID"/>
-                <TableColumn prefWidth="75.0" text="齿轮 ID"/>
-                <TableColumn prefWidth="75.0" text="仪器 ID"/>
-                <TableColumn prefWidth="75.0" text="备注"/>
-                <TableColumn prefWidth="75.0" text="mn"/>
-                <TableColumn prefWidth="75.0" text="z"/>
-                <TableColumn prefWidth="75.0" text="d"/>
-                <TableColumn prefWidth="75.0" text="da"/>
-                <TableColumn prefWidth="75.0" text="df"/>
-                <TableColumn prefWidth="75.0" text="alpha"/>
-                <TableColumn prefWidth="75.0" text="beta"/>
-                <TableColumn prefWidth="75.0" text="sigma"/>
-                <TableColumn prefWidth="75.0" text="mn2"/>
-                <TableColumn prefWidth="75.0" text="z2"/>
-                <TableColumn prefWidth="75.0" text="d2"/>
-                <TableColumn prefWidth="75.0" text="da2"/>
-                <TableColumn prefWidth="75.0" text="dm2"/>
-                <TableColumn prefWidth="75.0" text="alpha"/>
-                <TableColumn prefWidth="75.0" text="beta2"/>
-                <TableColumn prefWidth="75.0" text="x2"/>
-            </columns>
-        </TableView>
-        
-        <Pagination id="pagination" fx:id="pagination" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
-        
-        <LineChart id="chart" fx:id="chart" GridPane.columnSpan="2" GridPane.rowIndex="2">
-            <xAxis>
-                <CategoryAxis side="BOTTOM"/>
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT"/>
-            </yAxis>
-            <GridPane.margin>
-                <Insets bottom="3.0" left="2.0"/>
-            </GridPane.margin>
-        </LineChart>
-        
-        <GridPane id="buttonGridPane" fx:id="buttonGridPane" GridPane.columnIndex="1">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="150.0" valignment="CENTER" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <Label text="二维码"/>
-                <ImageView id="qrImageView" fx:id="qrImageView" GridPane.rowIndex="1">
-                    <image>
-                        <Image url="/img/icons/main-icon-48.png"/>
-                    </image>
-                </ImageView>
-                <Button fx:id="addMeasureButton" styleClass="operate-button" text="添加" GridPane.rowIndex="2" onAction="#addMeasureButtonOnAction"/>
-                <Button styleClass="operate-button" text="修改" GridPane.rowIndex="3"/>
-                <Button styleClass="operate-button" text="删除" GridPane.rowIndex="4"/>
-            </children>
-        </GridPane>
-        
-        <GridPane id="paraGridPane" fx:id="paraGridPane" GridPane.columnIndex="2" GridPane.rowSpan="3">
-            <columnConstraints>
-                <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="65.0" prefWidth="65.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="50.0" prefWidth="50.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="50.0" prefWidth="50.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <Label text="参数"/>
-                <Label text="值" GridPane.columnIndex="1"/>
-                <Label text="等级" GridPane.columnIndex="2"/>
-                <Label text="Fal" GridPane.rowIndex="1"/>
-                <Label text="ffaL" GridPane.rowIndex="2"/>
-                <Label text="fHaL" GridPane.rowIndex="3"/>
-                <Label text="FpL" GridPane.rowIndex="4"/>
-                <Label text="FpkL" GridPane.rowIndex="5"/>
-                <Label text="fpL" GridPane.rowIndex="6"/>
-                <Label text="fuL" GridPane.rowIndex="7"/>
-                <Label text="FaR" GridPane.rowIndex="8"/>
-                <Label text="ffaR" GridPane.rowIndex="9"/>
-                <Label text="fHaR" GridPane.rowIndex="10"/>
-                <Label text="FpR" GridPane.rowIndex="11"/>
-                <Label text="FpkR" GridPane.rowIndex="12"/>
-                <Label text="fpR" GridPane.rowIndex="13"/>
-                <Label text="fuR" GridPane.rowIndex="14"/>
-                <Label text="Fr" GridPane.rowIndex="15"/>
-                <Label text="Rs" GridPane.rowIndex="16"/>
-                <Label text="FisL" GridPane.rowIndex="17"/>
-                <Label text="fis_max_L" GridPane.rowIndex="18"/>
-                <Label text="FisR" GridPane.rowIndex="19"/>
-                <Label text="fis_max_R" GridPane.rowIndex="20"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="18"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="19"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="20"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="9"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="11"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="14"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="15"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="16"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="17"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="18"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="19"/>
-                <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="20"/>
-            </children>
-            <GridPane.margin>
-                <Insets bottom="3.0" left="1.0" right="3.0" top="3.0"/>
-            </GridPane.margin>
-        </GridPane>
-    </children>
+    <TableView id="tableView" fx:id="tableView">
+        <!--<columns>-->
+            <!--<TableColumn prefWidth="75.0" text="测量 ID"/>-->
+            <!--<TableColumn prefWidth="75.0" text="齿轮 ID"/>-->
+            <!--<TableColumn prefWidth="75.0" text="仪器 ID"/>-->
+            <!--<TableColumn prefWidth="75.0" text="备注"/>-->
+            <!--<TableColumn prefWidth="75.0" text="mn"/>-->
+            <!--<TableColumn prefWidth="75.0" text="z"/>-->
+            <!--<TableColumn prefWidth="75.0" text="d"/>-->
+            <!--<TableColumn prefWidth="75.0" text="da"/>-->
+            <!--<TableColumn prefWidth="75.0" text="df"/>-->
+            <!--<TableColumn prefWidth="75.0" text="alpha"/>-->
+            <!--<TableColumn prefWidth="75.0" text="beta"/>-->
+            <!--<TableColumn prefWidth="75.0" text="sigma"/>-->
+            <!--<TableColumn prefWidth="75.0" text="mn2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="z2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="d2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="da2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="dm2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="alpha"/>-->
+            <!--<TableColumn prefWidth="75.0" text="beta2"/>-->
+            <!--<TableColumn prefWidth="75.0" text="x2"/>-->
+        <!--</columns>-->
+    </TableView>
+
+    <Pagination id="pagination" fx:id="pagination" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
+
+    <LineChart id="chart" fx:id="chart" GridPane.columnSpan="2" GridPane.rowIndex="2">
+        <xAxis>
+            <CategoryAxis side="BOTTOM"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis side="LEFT"/>
+        </yAxis>
+        <GridPane.margin>
+            <Insets bottom="3.0" left="2.0"/>
+        </GridPane.margin>
+    </LineChart>
+
+    <GridPane id="buttonGridPane" fx:id="buttonGridPane" GridPane.columnIndex="1">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
+            <RowConstraints minHeight="10.0" prefHeight="150.0" valignment="CENTER" vgrow="NEVER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Label text="二维码"/>
+        <ImageView id="qrImageView" fx:id="qrImageView" GridPane.rowIndex="1">
+            <Image url="/img/icons/main-icon-48.png"/>
+        </ImageView>
+        <Button fx:id="addMeasureButton" styleClass="operate-button" text="添加" GridPane.rowIndex="2"/>
+        <Button styleClass="operate-button" text="修改" GridPane.rowIndex="3"/>
+        <Button styleClass="operate-button" text="删除" GridPane.rowIndex="4"/>
+    </GridPane>
+
+    <GridPane id="paraGridPane" fx:id="paraGridPane" GridPane.columnIndex="2" GridPane.rowSpan="3">
+        <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="65.0" prefWidth="65.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="50.0" prefWidth="50.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="50.0" prefWidth="50.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Label text="参数"/>
+        <Label text="值" GridPane.columnIndex="1"/>
+        <Label text="等级" GridPane.columnIndex="2"/>
+        <Label text="Fal" GridPane.rowIndex="1"/>
+        <Label text="ffaL" GridPane.rowIndex="2"/>
+        <Label text="fHaL" GridPane.rowIndex="3"/>
+        <Label text="FpL" GridPane.rowIndex="4"/>
+        <Label text="FpkL" GridPane.rowIndex="5"/>
+        <Label text="fpL" GridPane.rowIndex="6"/>
+        <Label text="fuL" GridPane.rowIndex="7"/>
+        <Label text="FaR" GridPane.rowIndex="8"/>
+        <Label text="ffaR" GridPane.rowIndex="9"/>
+        <Label text="fHaR" GridPane.rowIndex="10"/>
+        <Label text="FpR" GridPane.rowIndex="11"/>
+        <Label text="FpkR" GridPane.rowIndex="12"/>
+        <Label text="fpR" GridPane.rowIndex="13"/>
+        <Label text="fuR" GridPane.rowIndex="14"/>
+        <Label text="Fr" GridPane.rowIndex="15"/>
+        <Label text="Rs" GridPane.rowIndex="16"/>
+        <Label text="FisL" GridPane.rowIndex="17"/>
+        <Label text="fis_max_L" GridPane.rowIndex="18"/>
+        <Label text="FisR" GridPane.rowIndex="19"/>
+        <Label text="fis_max_R" GridPane.rowIndex="20"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="2"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="3"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="4"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="5"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="6"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="7"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="8"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="9"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="10"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="11"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="12"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="13"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="14"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="15"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="16"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="17"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="18"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="19"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="1"
+                   GridPane.rowIndex="20"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="1"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="2"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="3"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="4"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="5"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="6"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="7"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="8"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="9"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="10"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="11"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="12"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="13"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="14"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="15"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="16"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="17"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="18"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="19"/>
+        <TextField styleClass="para-text-field" editable="false" GridPane.columnIndex="2"
+                   GridPane.rowIndex="20"/>
+        <GridPane.margin>
+            <Insets bottom="3.0" left="1.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </GridPane>
 </GridPane>
