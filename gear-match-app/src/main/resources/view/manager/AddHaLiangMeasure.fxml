@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane id="mainGridPane" fx:id="mainGridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="org.bpl.gear.match.ui.controller.manager.AddHaLiangMeasureController" stylesheets="/css/manager/AddHaLiangMeasure.css">
+<GridPane id="mainGridPane" fx:id="mainGridPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" stylesheets="/css/manager/AddHaLiangMeasure.css">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="100.0" prefWidth="100.0"/>
         <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="250.0" prefWidth="250.0"/>
@@ -24,6 +22,7 @@
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="70.0" prefHeight="70.0" valignment="CENTER" vgrow="NEVER"/>
+        <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
     </rowConstraints>
     <Label text="测量 ID"/>
     <Label text="选择文件" GridPane.rowIndex="1"/>
@@ -32,15 +31,19 @@
     <Label text="节点位置" GridPane.rowIndex="4"/>
     <Label text="测量日期" GridPane.rowIndex="5"/>
     <Label text="备注" GridPane.rowIndex="6"/>
-    <TextField fx:id="measureIdTextField" GridPane.columnIndex="1"/>
+    <TextField fx:id="measureIdTextField" editable="false" GridPane.columnIndex="1"/>
     <TextField fx:id="filePathTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <TextField fx:id="instrumentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <TextField fx:id="gearIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <TextField fx:id="instrumentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" text="0"/>
+    <TextField fx:id="gearIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" text="0"/>
     <TextField fx:id="pitchPointTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
-    <TextArea fx:id="remarkTextField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
-    <Button styleClass="add-measure-button" text="生成" GridPane.columnIndex="2" onAction="#generateMeasureIdOnAction"/>
-    <Button styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#selectMeasureFileOnAction"/>
-    <Button styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#selectInstrumentOnAction"/>
-    <Button styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="3" onAction="#selectGearOnAction"/>
-    <DatePicker fx:id="datePicker" styleClass="add-measure-button" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5"/>
+    <TextArea fx:id="noteTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+              GridPane.columnSpan="2" GridPane.rowIndex="6"/>
+    <Button fx:id="generateIdButton" styleClass="add-measure-button" text="生成" GridPane.columnIndex="2"/>
+    <Button fx:id="fileChooserButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <Button fx:id="instrumentSelectButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+    <Button fx:id="gearSelectButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+    <DatePicker fx:id="datePicker" styleClass="add-measure-button" GridPane.columnIndex="1" GridPane.columnSpan="2"
+                GridPane.rowIndex="5"/>
+    <Button fx:id="addMeasureButton" text="添加" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <Button fx:id="cancelButton" text="取消" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
 </GridPane>

@@ -5,7 +5,7 @@
 <generatorConfiguration>
     
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="/Users/guoxiaozhong/.m2/repository/mysql/mysql-connector-java/5.1.36/mysql-connector-java-5.1.36.jar"/>
+    <classPathEntry location="/Users/spartajet/.m2/repository/mysql/mysql-connector-java/5.1.36/mysql-connector-java-5.1.36.jar"/>
     
     <context id="context" targetRuntime="MyBatis3">
         <commentGenerator>
@@ -21,7 +21,7 @@
         </javaTypeResolver>
         
         <!-- !!!! Model Configurations !!!! -->
-        <javaModelGenerator targetPackage="org.bpl.gear.match.ui.mybatis.bean" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+        <javaModelGenerator targetPackage="com.spartajet.gear.match.mybatis.bean" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -32,12 +32,12 @@
         </sqlMapGenerator>
         
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="org.bpl.gear.match.ui.mybatis.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.spartajet.gear.match.mybatis.mapper" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="gear" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="haliang" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

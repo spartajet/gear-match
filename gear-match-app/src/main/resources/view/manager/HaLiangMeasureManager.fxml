@@ -21,28 +21,6 @@
         <RowConstraints prefHeight="200.0" vgrow="NEVER"/>
     </rowConstraints>
     <TableView id="tableView" fx:id="tableView">
-        <!--<columns>-->
-            <!--<TableColumn prefWidth="75.0" text="测量 ID"/>-->
-            <!--<TableColumn prefWidth="75.0" text="齿轮 ID"/>-->
-            <!--<TableColumn prefWidth="75.0" text="仪器 ID"/>-->
-            <!--<TableColumn prefWidth="75.0" text="备注"/>-->
-            <!--<TableColumn prefWidth="75.0" text="mn"/>-->
-            <!--<TableColumn prefWidth="75.0" text="z"/>-->
-            <!--<TableColumn prefWidth="75.0" text="d"/>-->
-            <!--<TableColumn prefWidth="75.0" text="da"/>-->
-            <!--<TableColumn prefWidth="75.0" text="df"/>-->
-            <!--<TableColumn prefWidth="75.0" text="alpha"/>-->
-            <!--<TableColumn prefWidth="75.0" text="beta"/>-->
-            <!--<TableColumn prefWidth="75.0" text="sigma"/>-->
-            <!--<TableColumn prefWidth="75.0" text="mn2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="z2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="d2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="da2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="dm2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="alpha"/>-->
-            <!--<TableColumn prefWidth="75.0" text="beta2"/>-->
-            <!--<TableColumn prefWidth="75.0" text="x2"/>-->
-        <!--</columns>-->
     </TableView>
 
     <Pagination id="pagination" fx:id="pagination" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>

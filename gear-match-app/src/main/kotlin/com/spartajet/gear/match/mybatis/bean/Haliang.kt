@@ -1,0 +1,5 @@
+package com.spartajet.gear.match.mybatis.bean
+
+import java.util.*
+
+data class Haliang(val id: Long, val gearid: Long, val instrumentid: Long, val mn: Double, val z: Int, val d: Double, val da: Double, var df: Double, var alpha: Double, var beta: Double, var sigma: Double, var mn2: Double, var z2: Int, var d2: Double, var da2: Double, var dm2: Double, var alpha2: Double, var beta2: Double, var x2: Double, var note: String, var pitchl: Double,var pitchr: Double, var creatdate: Date, var fal: Double, var falc: Int, var ffal: Double, var ffalc: Int, var fhal: Double, var fhalc: Int, var fpl: Double, var fplc: Int, var fpkl: Double, var fpklc: Int, var ffpl: Double, var ffplc: Int, var ful: Double, var fulc: Int, var far: Double, var farc: Int, var ffar: Double, var ffarc: Int, var fhar: Double, var fharc: Int, var fpr: Double, var fprc: Int, var fpkr: Double, var fpkrc: Int, var ffpr: Double, var ffprc: Int, var fur: Double, var furc: Int, var fr: Double, var frc: Int, var rs: Double, var rsc: Int, var fisl: Double, var fislc: Int, var fismaxl: Double, var fismaxlc: Int, var fisr: Double, var fisrc: Int, var fismaxr: Double, var fismaxrc: Int)
