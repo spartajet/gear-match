@@ -27,7 +27,7 @@
 
     <LineChart id="chart" fx:id="chart" GridPane.columnSpan="2" GridPane.rowIndex="2">
         <xAxis>
-            <CategoryAxis side="BOTTOM"/>
+            <NumberAxis side="BOTTOM"/>
         </xAxis>
         <yAxis>
             <NumberAxis side="LEFT"/>

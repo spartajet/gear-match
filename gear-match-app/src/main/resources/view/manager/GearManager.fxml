@@ -7,7 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
-<GridPane id="mainGridPane" fx:id="mainGridPane" prefHeight="541.0" prefWidth="545.0" stylesheets="/css/manager/GearManager.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bpl.gear.match.ui.controller.manager.GearManagerController">
+<GridPane id="mainGridPane" fx:id="mainGridPane" prefHeight="541.0" prefWidth="545.0"
+          stylesheets="/css/manager/GearManager.css" xmlns="http://javafx.com/javafx/8.0.111"
+          xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="80.0"/>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="20.0"/>
@@ -51,7 +53,8 @@
         <Button fx:id="queryAllGearsButton" text="显示全部" GridPane.columnIndex="3" styleClass="select-pane-item">
         </Button>
     </GridPane>
-    <TableView fx:id="gearTableView" style="-fx-background-color: cornflowerblue" GridPane.rowIndex="1" prefHeight="400">
+    <TableView fx:id="gearTableView" style="-fx-background-color: cornflowerblue" GridPane.rowIndex="1"
+               prefHeight="400">
         <columns>
             <TableColumn fx:id="gearIdItem" text="编号"/>
             <TableColumn fx:id="gearNameItem" text="名称"/>
@@ -65,10 +68,10 @@
             <TableColumn fx:id="gearNoteItem" text="备注"/>
         </columns>
     </TableView>
-    
-    
+
+
     <Pagination id="pagination" fx:id="pagination" pageCount="100" GridPane.rowIndex="2" styleClass="content-pane"/>
-    
+
     <GridPane GridPane.rowIndex="3">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="33.0"/>
@@ -110,7 +113,8 @@
             <Insets bottom="5.0" left="5.0" right="5.0"/>
         </padding>
         <Label text="参数" GridPane.rowIndex="0"/>
-        <ImageView id="gearQrImageView" fx:id="gearQrImageView" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: blue;-fx-border-style: solid">
+        <ImageView id="gearQrImageView" fx:id="gearQrImageView" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                   style="-fx-background-color: blue;-fx-border-style: solid">
             <GridPane.margin>
                 <Insets left="1.0"/>
             </GridPane.margin>
@@ -129,22 +133,28 @@
         <Label text="齿顶高" GridPane.rowIndex="9"/>
         <Label text="齿根高" GridPane.rowIndex="10"/>
         <Label text="值" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-        
-        <TextField fx:id="gearIdTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="para-text-field"/>
-        <TextField fx:id="gearNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="para-text-field"/>
-        <TextField fx:id="gearTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="para-text-field"/>
+
+        <TextField fx:id="gearIdTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                   styleClass="para-text-field"/>
+        <TextField fx:id="gearNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                   styleClass="para-text-field"/>
+        <TextField fx:id="gearTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"
+                   styleClass="para-text-field"/>
         <TextField fx:id="gearZTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="para-text-field"/>
         <TextField fx:id="gearMnTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="para-text-field"/>
-        <TextField fx:id="gearPressureAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" styleClass="para-text-field"/>
-        <TextField fx:id="gearHelixAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" styleClass="para-text-field"/>
+        <TextField fx:id="gearPressureAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"
+                   styleClass="para-text-field"/>
+        <TextField fx:id="gearHelixAngleTextField" GridPane.columnIndex="1" GridPane.rowIndex="8"
+                   styleClass="para-text-field"/>
         <TextField fx:id="gearHaTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" styleClass="para-text-field"/>
-        <TextField fx:id="gearHfTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" styleClass="para-text-field"/>
+        <TextField fx:id="gearHfTextField" GridPane.columnIndex="1" GridPane.rowIndex="10"
+                   styleClass="para-text-field"/>
         <Label text="备注" GridPane.rowIndex="11"/>
         <TextArea fx:id="gearNoteTextArea" GridPane.columnSpan="2" GridPane.rowIndex="12"/>
         <HBox id="gearOperateButtonBox" GridPane.columnSpan="2" GridPane.rowIndex="13">
-            <Button fx:id="addGearButton" onAction="#addGearButtonOnAction" text="添加"/>
-            <Button fx:id="updateGearButton" onAction="#updateGearButtonOnAction" text="修改"/>
-            <Button fx:id="deleteGearButton" onAction="#deleteGearButtonOnAction" text="删除"/>
+            <Button fx:id="addGearButton" text="添加"/>
+            <Button fx:id="updateGearButton" text="修改"/>
+            <Button fx:id="deleteGearButton" text="删除"/>
         </HBox>
     </GridPane>
 </GridPane>

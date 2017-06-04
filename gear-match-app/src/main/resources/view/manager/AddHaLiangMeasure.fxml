@@ -20,7 +20,6 @@
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
-        <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="70.0" prefHeight="70.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
     </rowConstraints>
@@ -28,22 +27,18 @@
     <Label text="选择文件" GridPane.rowIndex="1"/>
     <Label text="仪器 ID" GridPane.rowIndex="2"/>
     <Label text="齿轮 ID" GridPane.rowIndex="3"/>
-    <Label text="节点位置" GridPane.rowIndex="4"/>
-    <Label text="测量日期" GridPane.rowIndex="5"/>
-    <Label text="备注" GridPane.rowIndex="6"/>
+    <Label text="测量日期" GridPane.rowIndex="4"/>
+    <Label text="备注" GridPane.rowIndex="5"/>
     <TextField fx:id="measureIdTextField" editable="false" GridPane.columnIndex="1"/>
     <TextField fx:id="filePathTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <TextField fx:id="instrumentIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" text="0"/>
     <TextField fx:id="gearIdTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" text="0"/>
-    <TextField fx:id="pitchPointTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
-    <TextArea fx:id="noteTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
-              GridPane.columnSpan="2" GridPane.rowIndex="6"/>
+    <TextArea fx:id="noteTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5"/>
     <Button fx:id="generateIdButton" styleClass="add-measure-button" text="生成" GridPane.columnIndex="2"/>
     <Button fx:id="fileChooserButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
     <Button fx:id="instrumentSelectButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
     <Button fx:id="gearSelectButton" styleClass="add-measure-button" text="选择" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-    <DatePicker fx:id="datePicker" styleClass="add-measure-button" GridPane.columnIndex="1" GridPane.columnSpan="2"
-                GridPane.rowIndex="5"/>
-    <Button fx:id="addMeasureButton" text="添加" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-    <Button fx:id="cancelButton" text="取消" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+    <DatePicker fx:id="datePicker" styleClass="add-measure-button" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
+    <Button fx:id="addMeasureButton" text="添加" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <Button fx:id="cancelButton" text="取消" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
 </GridPane>

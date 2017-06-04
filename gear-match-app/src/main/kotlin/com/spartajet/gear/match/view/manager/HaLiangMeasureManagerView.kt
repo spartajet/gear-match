@@ -1,11 +1,16 @@
 package com.spartajet.gear.match.view.manager
 
+import com.google.gson.Gson
 import com.spartajet.gear.match.mybatis.bean.Haliang
+import com.spartajet.gear.match.mybatis.mapper.HaliangMapper
+import javafx.collections.FXCollections
+import javafx.scene.chart.LineChart
 import javafx.scene.control.Button
 import javafx.scene.control.TableView
 import javafx.scene.layout.GridPane
 import javafx.stage.StageStyle
 import tornadofx.*
+import java.io.File
 
 /**
  * @description
@@ -14,17 +19,19 @@ import tornadofx.*
  */
 class HaLiangMeasureManagerView : View() {
     override val root: GridPane by fxml("/view/manager/HaLiangMeasureManager.fxml")
-
     val haLiangTable: TableView<Haliang> by fxid("tableView")
-
     val addMeasureButton: Button by fxid("addMeasureButton")
+    val chart: LineChart<Number, Number> by fxid("chart")
 
+    val haLiangList = FXCollections.observableArrayList<Haliang>()
+    val haliangMapper: HaliangMapper by di()
 
     init {
         with(haLiangTable) {
             column("测量ID", Haliang::id)
             column("齿轮ID", Haliang::gearid)
             column("仪器 ID", Haliang::instrumentid)
+            column("备注", Haliang::note)
             column("mn", Haliang::mn)
             column("z", Haliang::z)
             column("d", Haliang::d)
@@ -41,14 +48,49 @@ class HaLiangMeasureManagerView : View() {
             column("alpha2", Haliang::alpha2)
             column("beta2", Haliang::beta2)
             column("x2", Haliang::x2)
-            column("备注", Haliang::note)
+            column("pitchl", Haliang::pitchl)
+            column("pitchr", Haliang::pitchr)
+            selectionModel.selectedItemProperty().onChange {
+                showHaliangDetails(it)
+            }
         }
-
         with(addMeasureButton) {
             action {
                 find(AddHaLiangDialog::class).openModal(stageStyle = StageStyle.UTILITY)
+                showHaliangMeasureTable()
             }
         }
+        this.showHaliangMeasureTable()
 
     }
+
+
+    private fun showHaliangMeasureTable() {
+        this.haLiangList.clear()
+        this.haLiangList.addAll(this.haliangMapper.selectAll())
+        this.haLiangTable.items = this.haLiangList
+
+    }
+
+    private fun showHaliangDetails(haliang: Haliang?) {
+        if (haliang == null) return
+        val file: File = File("/Users/spartajet/Documents/gear_match/haliang/${haliang.id}.hl")
+        val fileString = file.readText()
+        val hlfile = Gson().fromJson(fileString, com.spartajet.gear.match.base.hl.Haliang::class.java)
+        val giel = hlfile.giel
+        val gier = hlfile.gier
+        val intelval = hlfile.interval
+        with(chart) {
+            title = "齿轮整体误差"
+            createSymbols = false
+
+            multiseries("左齿面", "右齿面") {
+                for (i in 0..giel.size / 10 - 1) {
+                    data(i, giel[i * 10], gier[i * 10])
+                }
+            }
+
+        }
+    }
+
 }

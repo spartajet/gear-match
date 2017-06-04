@@ -1,5 +1,7 @@
 package com.spartajet.gear.match.view.manager
 
+import com.google.gson.Gson
+import com.spartajet.gear.match.base.hl.resample
 import com.spartajet.gear.match.base.utility.SnowFlake
 import com.spartajet.gear.match.mybatis.bean.Haliang
 import com.spartajet.gear.match.mybatis.mapper.HaliangMapper
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
 import javafx.stage.FileChooser
 import org.controlsfx.control.Notifications
+import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
 import tornadofx.*
@@ -39,7 +42,6 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
     private val addMeasureButton: Button by fxid("addMeasureButton")
     private val measureIdTextField: TextField by fxid("measureIdTextField")
     private val filePathTextField: TextField by fxid("filePathTextField")
-    private val pitchPointTextField: TextField by fxid("pitchPointTextField")
     private val cancelButton: Button by fxid("cancelButton")
     private val datePicker: DatePicker by fxid("datePicker")
     private val noteTextArea: TextArea by fxid("noteTextArea")
@@ -58,7 +60,8 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
                     extensionFilters.add(FileChooser.ExtensionFilter("Haliang File", "*.jsd"))
                 }
                 file = chooser.showOpenDialog(root.scene.window)
-                if (file != null) filePathTextField.text = file!!.name
+
+                filePathTextField.text = file?.name ?: ""
 
             }
         }
@@ -74,7 +77,6 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         }
         with(addMeasureButton) {
             action {
-                Notifications.create().title("提示").text("开始添加测量信息").owner(root).showInformation()
                 if (addHaLiangMeasure()) {
                     Notifications.create().title("成功").text("添加齿轮成功").owner(root).showInformation()
                     close()
@@ -96,10 +98,6 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
             Notifications.create().title("警告").text("请选择文件").showWarning()
             return false
         }
-        if (pitchPointTextField.text.trim().isEmpty()) {
-            Notifications.create().title("警告").text("请输入节点").showWarning()
-            return false
-        }
         if (this.datePicker.value == null) {
             Notifications.create().title("警告").text("请选择日期").showWarning()
             return false
@@ -108,11 +106,10 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         val id = this.measureIdTextField.text.toLong()
         val instrumentId = 0L
         val gearId = 0L
-        val pitchPoint = this.pitchPointTextField.text.toDouble()
         val date = this.datePicker.value
-        val note = file!!.nameWithoutExtension + ":" + this.noteTextArea.text
+        val note = file?.nameWithoutExtension ?: "" + ":" + this.noteTextArea.text
 
-        val fileString = file!!.readText()
+        val fileString = file?.readText() ?: ""
 
         val obj = JSONValue.parse(fileString)
         val haliang = obj as JSONObject
@@ -176,19 +173,59 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         val Class_fis_max_R = this.any2Int(haliang["Class_fis_max_R"])
         val createDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
 
-        val haliangBean = Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, GIE_L_First_Unit_zero_angle, GIE_R_First_Unit_zero_angle, createDate, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R)
+        val haliangBean = Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, GIE_L_First_Unit_zero_angle, GIE_R_First_Unit_zero_angle, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R)
 
+
+        val lx: MutableList<Double> = mutableListOf()
+        val ly: MutableList<Double> = mutableListOf()
+        val rx: MutableList<Double> = mutableListOf()
+        val ry: MutableList<Double> = mutableListOf()
+
+        ((haliang["GIE_L_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+            lx.add(when (any) {
+                is Long -> any.toDouble()
+                is Double -> any
+                else -> 0.0
+            })
+        }
+        ((haliang["GIE_L_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+            ly.add(when (any) {
+                is Long -> any.toDouble()
+                is Double -> any
+                else -> 0.0
+            })
+        }
+        ((haliang["GIE_R_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+            rx.add(when (any) {
+                is Long -> any.toDouble()
+                is Double -> any
+                else -> 0.0
+            })
+        }
+        ((haliang["GIE_R_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+            ry.add(when (any) {
+                is Long -> any.toDouble()
+                is Double -> any
+                else -> 0.0
+            })
+        }
+
+        val giel = resample(3, 0.1, lx.toTypedArray(), ly.toTypedArray())
+        val gier = resample(3, 0.1, rx.toTypedArray(), ry.toTypedArray())
+
+        val halingFile = com.spartajet.gear.match.base.hl.Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, GIE_L_First_Unit_zero_angle, GIE_R_First_Unit_zero_angle, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R, giel, gier, 0.1)
+
+        val haliangFileString = Gson().toJson(halingFile)
 
         try {
-            file!!.copyTo(File("/Users/spartajet/Documents/gear_match/haliang/$id.jsd"))
+
+            File("/Users/spartajet/Documents/gear_match/haliang/$id.hl").bufferedWriter().use { out -> out.write(haliangFileString) }
             this.haliangMapper.insert(haliangBean)
             Notifications.create().title("success").text("add HaLiang Measure successfully! ")
             return true
         } catch(e: Exception) {
             Notifications.create().title("fail").text("add HaLiang Measure failure! ")
         }
-
-
         return true
     }
 
