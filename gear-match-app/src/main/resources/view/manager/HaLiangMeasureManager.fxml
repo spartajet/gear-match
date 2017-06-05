@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
@@ -18,14 +17,14 @@
     <rowConstraints>
         <RowConstraints prefHeight="30.0" vgrow="SOMETIMES"/>
         <RowConstraints prefHeight="25.0" vgrow="NEVER"/>
-        <RowConstraints prefHeight="200.0" vgrow="NEVER"/>
+        <RowConstraints prefHeight="250.0" vgrow="NEVER"/>
     </rowConstraints>
     <TableView id="tableView" fx:id="tableView">
     </TableView>
 
     <Pagination id="pagination" fx:id="pagination" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"/>
 
-    <LineChart id="chart" fx:id="chart" GridPane.columnSpan="2" GridPane.rowIndex="2">
+    <LineChart id="chart" fx:id="chart" GridPane.columnSpan="2" GridPane.rowIndex="2" styleClass="chart-series-line">
         <xAxis>
             <NumberAxis side="BOTTOM"/>
         </xAxis>

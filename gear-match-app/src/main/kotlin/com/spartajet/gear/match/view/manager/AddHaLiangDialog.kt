@@ -33,6 +33,7 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
     val haliangMapper: HaliangMapper by di()
 
     var file: File? = null
+    var result: Boolean = false
 
     override val root: GridPane by fxml("/view/manager/AddHaLiangMeasure.fxml")
     private val generateIdButton: Button by fxid("generateIdButton")
@@ -79,6 +80,7 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
             action {
                 if (addHaLiangMeasure()) {
                     Notifications.create().title("成功").text("添加齿轮成功").owner(root).showInformation()
+                    result = true
                     close()
                 }
             }
@@ -243,5 +245,7 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         is Double -> any
         else -> 0.0
     }
+
+    fun getDialogResult() = result
 
 }

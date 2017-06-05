@@ -8,7 +8,6 @@ import javafx.scene.chart.LineChart
 import javafx.scene.control.Button
 import javafx.scene.control.TableView
 import javafx.scene.layout.GridPane
-import javafx.stage.StageStyle
 import tornadofx.*
 import java.io.File
 
@@ -56,8 +55,8 @@ class HaLiangMeasureManagerView : View() {
         }
         with(addMeasureButton) {
             action {
-                find(AddHaLiangDialog::class).openModal(stageStyle = StageStyle.UTILITY)
-                showHaliangMeasureTable()
+                val modal = find(AddHaLiangDialog::class).apply { openModal(block = true) }
+                if (modal.result) showHaliangMeasureTable()
             }
         }
         this.showHaliangMeasureTable()
@@ -81,8 +80,10 @@ class HaLiangMeasureManagerView : View() {
         val gier = hlfile.gier
         val intelval = hlfile.interval
         with(chart) {
+            data.clear()
             title = "齿轮整体误差"
             createSymbols = false
+            isLegendVisible = true
 
             multiseries("左齿面", "右齿面") {
                 for (i in 0..giel.size / 10 - 1) {
