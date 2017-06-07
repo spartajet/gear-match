@@ -5,6 +5,7 @@ import com.spartajet.gear.match.style.MainViewStyle.Companion.function_menu_tabp
 import com.spartajet.gear.match.style.MainViewStyle.Companion.tab_flow_pane
 import com.spartajet.gear.match.view.manager.GearManagerView
 import com.spartajet.gear.match.view.manager.HaLiangMeasureManagerView
+import com.spartajet.gear.match.view.match.HaliangMatchView
 import javafx.geometry.Side
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
@@ -20,11 +21,13 @@ class MainView : View("齿轮配对系统") {
     val dashBoardView: DashBoardView by inject()
     val gearManagerView: GearManagerView by inject()
     val haLiangMeasureManagerView: HaLiangMeasureManagerView by inject()
+    val haliangMatchView: HaliangMatchView by inject()
 
     val mainTabPane = tabpane()
-    //    lateinit var gearManagerTab: Tab
+
     var isShowGearManageTab: Boolean = false
     var isShowHaLiangMeasureTab: Boolean = false
+    var isShowHaliangMatchTab: Boolean = false
 
 
     override val root = borderpane {
@@ -47,18 +50,26 @@ class MainView : View("齿轮配对系统") {
                 side = Side.LEFT
                 tab("系统管理") {
                     flowpane {
+                        addClass(tab_flow_pane)
                         button("齿轮管理", graphic = imageview("/img/function/manager/gear_manage.png")) {
                             addClass(fun_menu_button)
                             action { showGearManager() }
                         }
-                        addClass(tab_flow_pane)
                         button("哈量测量", graphic = imageview("/img/function/manager/instrument_manage.png")) {
                             addClass(fun_menu_button)
                             action { showHaLiangMeasure() }
                         }
                     }
                 }
-                tab("GPIE配对") { }
+                tab("GPIE配对") {
+                    flowpane {
+                        addClass(tab_flow_pane)
+                        button("哈量配对", graphic = imageview("/img/function/manager/gear_manage.png")) {
+                            addClass(fun_menu_button)
+                            action { showHaliangMatch() }
+                        }
+                    }
+                }
                 tab("贝叶斯配对") { }
             }
         }
@@ -96,5 +107,20 @@ class MainView : View("齿轮配对系统") {
         mainTabPane.selectionModel.select(haLiangMeasureTab)
         isShowHaLiangMeasureTab = true
     }
+
+    private fun showHaliangMatch() {
+        if (isShowHaliangMatchTab) return
+        val haliangMatchTab = Tab("哈量配对")
+        with(haliangMatchTab) {
+            content = haliangMatchView.root
+            setOnClosed { isShowHaliangMatchTab = false }
+        }
+        with(mainTabPane) {
+            tabs.add(haliangMatchTab)
+            selectionModel.select(haliangMatchTab)
+        }
+        isShowHaliangMatchTab = true
+    }
+
 }
 

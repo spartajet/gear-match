@@ -17,8 +17,6 @@ import org.json.simple.JSONObject
 import org.json.simple.JSONValue
 import tornadofx.*
 import java.io.File
-import java.time.ZoneId
-import java.util.*
 
 
 /**
@@ -173,7 +171,7 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         val Class_fis_max_L = this.any2Int(haliang["Class_fis_max_L"])
         val Class_FisR = this.any2Int(haliang["Class_FisR"])
         val Class_fis_max_R = this.any2Int(haliang["Class_fis_max_R"])
-        val createDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
+//        val createDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())
 
         val haliangBean = Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, GIE_L_First_Unit_zero_angle, GIE_R_First_Unit_zero_angle, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R)
 
@@ -183,28 +181,28 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
         val rx: MutableList<Double> = mutableListOf()
         val ry: MutableList<Double> = mutableListOf()
 
-        ((haliang["GIE_L_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+        ((haliang["GIE_L_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { _, any ->
             lx.add(when (any) {
                 is Long -> any.toDouble()
                 is Double -> any
                 else -> 0.0
             })
         }
-        ((haliang["GIE_L_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+        ((haliang["GIE_L_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { _, any ->
             ly.add(when (any) {
                 is Long -> any.toDouble()
                 is Double -> any
                 else -> 0.0
             })
         }
-        ((haliang["GIE_R_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+        ((haliang["GIE_R_Curve"] as JSONObject)["XValues"] as JSONArray).toArray().forEachIndexed { _, any ->
             rx.add(when (any) {
                 is Long -> any.toDouble()
                 is Double -> any
                 else -> 0.0
             })
         }
-        ((haliang["GIE_R_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { index, any ->
+        ((haliang["GIE_R_Curve"] as JSONObject)["YValues"] as JSONArray).toArray().forEachIndexed { _, any ->
             ry.add(when (any) {
                 is Long -> any.toDouble()
                 is Double -> any

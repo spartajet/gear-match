@@ -28,7 +28,6 @@ import kotlin.reflect.KClass
     override fun start(stage: Stage) {
         super.start(stage)
         stage.icons.add(Image("/img/icons/main-icon-48.png"))
-        //        stage.title="fadfasdfafas"
         stage.isMaximized = true
     }
 }

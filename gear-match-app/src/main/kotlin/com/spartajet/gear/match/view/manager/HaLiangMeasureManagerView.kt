@@ -31,14 +31,6 @@ class HaLiangMeasureManagerView : View() {
             column("齿轮ID", Haliang::gearid)
             column("仪器 ID", Haliang::instrumentid)
             column("备注", Haliang::note)
-            column("mn", Haliang::mn)
-            column("z", Haliang::z)
-            column("d", Haliang::d)
-            column("da", Haliang::da)
-            column("df", Haliang::df)
-            column("alpha", Haliang::alpha)
-            column("beta", Haliang::beta)
-            column("sigma", Haliang::sigma)
             column("mn2", Haliang::mn2)
             column("z2", Haliang::z2)
             column("d2", Haliang::d2)
@@ -47,6 +39,14 @@ class HaLiangMeasureManagerView : View() {
             column("alpha2", Haliang::alpha2)
             column("beta2", Haliang::beta2)
             column("x2", Haliang::x2)
+            column("mn", Haliang::mn)
+            column("z", Haliang::z)
+            column("d", Haliang::d)
+            column("da", Haliang::da)
+            column("df", Haliang::df)
+            column("alpha", Haliang::alpha)
+            column("beta", Haliang::beta)
+            column("sigma", Haliang::sigma)
             column("pitchl", Haliang::pitchl)
             column("pitchr", Haliang::pitchr)
             selectionModel.selectedItemProperty().onChange {
@@ -78,7 +78,6 @@ class HaLiangMeasureManagerView : View() {
         val hlfile = Gson().fromJson(fileString, com.spartajet.gear.match.base.hl.Haliang::class.java)
         val giel = hlfile.giel
         val gier = hlfile.gier
-        val intelval = hlfile.interval
         with(chart) {
             data.clear()
             title = "齿轮整体误差"

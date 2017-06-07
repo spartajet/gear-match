@@ -1,0 +1,9 @@
+.button {
+    -fx-max-height: Infinity;
+    -fx-max-width: Infinity;
+}
+
+.web-view {
+    -fx-border-color: #9c9c9c;
+    -fx-border-style: solid;
+}
