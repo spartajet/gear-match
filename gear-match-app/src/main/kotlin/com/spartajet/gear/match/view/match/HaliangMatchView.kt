@@ -1,5 +1,6 @@
 package com.spartajet.gear.match.view.match
 
+import com.github.abel533.echarts.series.Line
 import com.google.gson.Gson
 import com.spartajet.gear.match.base.hl.Haliang
 import javafx.geometry.Orientation
@@ -8,6 +9,8 @@ import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.GridPane
+import javafx.scene.web.WebEngine
+import javafx.scene.web.WebView
 import tornadofx.*
 import java.io.File
 
@@ -32,6 +35,14 @@ class HaliangMatchView : View("哈量配对") {
     val drivedMeasureIdField: TextField by fxid("drivedMeasureIdField")
     val drivedNoteField: TextArea by fxid("drivedNoteField")
     val matchParaGridPane: GridPane by fxid("matchParaGridPane")
+    val drivingGearView: WebView by fxid("drivingGearView")
+    val drivedGearView: WebView by fxid("drivedGearView")
+    val gpieView: WebView by fxid("gpieView")
+
+    lateinit var drivingWebEngine: WebEngine
+    lateinit var drivedWebEngine: WebEngine
+    lateinit var gpieWebEngine: WebEngine
+
 
     override val root: GridPane by fxml("/view/match/HaliangMatch.fxml")
 
@@ -79,12 +90,43 @@ class HaliangMatchView : View("哈量配对") {
             add(setForm, 0, 1)
         }
 
+        with(drivingGearView) {
+            drivingWebEngine = engine
+            engine.userAgent = "Chrome/58.0.3029.110"
+            engine.load("http://localhost:8089/match/HaliangGear.html")
+            //这个高度绑定还需要处理一下
+            heightProperty().onChange {
+                val chartHeight = it - 10
+                val aaa = chartHeight.toInt()
+                val js = "reSetDivHeight('$aaa')"
+//                engine.executeScript("reSetDivHeight('180')")
+            }
+        }
+        with(drivedGearView) {
+            drivedWebEngine = engine
+            engine.userAgent = "Chrome/58.0.3029.110"
+            engine.load("http://localhost:8089/match/HaliangGear.html")
+        }
     }
 
     private fun showDrivingGearDetail() {
         drivingGearIdField.text = drivingGear.gearid.toString()
         drivingMeasureIdField.text = drivingGear.id.toString()
         drivingNoteField.text = drivingGear.note
+        val drivingLeftSeries = Line()
+        with(drivingLeftSeries) {
+            name = "左齿面 GIE"
+//            data = drivingGear.giel.filterIndexed { index, _ -> index % 10 == 0 }
+            data = mutableListOf<Array<Long>>()
+            drivingGear.giel.forEachIndexed { index, d ->
+                if (index % 10 == 0) {
+                    data.add(arrayOf(index / 10.0, d))
+                }
+            }
+            symbolSize = 1
+        }
+        val lineString = Gson().toJson(drivingLeftSeries)
+        drivingWebEngine.executeScript("addSeries($lineString)")
     }
 
     private fun showDrivedGearDetail() {
@@ -92,5 +134,6 @@ class HaliangMatchView : View("哈量配对") {
         drivedMeasureIdField.text = drivedGear.id.toString()
         drivedNoteField.text = drivedGear.note
     }
+
 
 }
