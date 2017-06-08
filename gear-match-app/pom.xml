@@ -12,8 +12,12 @@
     <artifactId>gear-match-app</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.github.abel533</groupId>
-            <artifactId>ECharts</artifactId>
+            <groupId>org.jfree</groupId>
+            <artifactId>fxgraphics2d</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jfxtras</groupId>

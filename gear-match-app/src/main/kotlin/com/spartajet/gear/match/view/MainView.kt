@@ -31,18 +31,18 @@ class MainView : View("齿轮配对系统") {
 
 
     override val root = borderpane {
-        top {
-            menubar {
-                menu("File") {
-                    item("New")
-                    separator()
-                }
-                menu("关于") {
-                    item("版权信息")
-                }
-
-            }
-        }
+//        top {
+//            menubar {
+//                menu("File") {
+//                    item("New")
+//                    separator()
+//                }
+//                menu("关于") {
+//                    item("版权信息")
+//                }
+//
+//            }
+//        }
         left {
             tabpane {
                 tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
