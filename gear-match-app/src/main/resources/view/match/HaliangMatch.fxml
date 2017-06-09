@@ -41,7 +41,7 @@
         <Label text="齿轮ID"/>
         <Label text="测量ID" GridPane.rowIndex="1"/>
         <Label text="备注" GridPane.rowIndex="2"/>
-        <Button text="查看详情" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+        <Button text="查看主动轮" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
         <Button fx:id="drivingGearSelectButton" text="选择主动齿轮" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
         <TextField fx:id="drivingGearIdField" GridPane.columnIndex="1" editable="false"/>
         <TextField fx:id="drivingMeasureIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
@@ -66,7 +66,7 @@
         <Label text="齿轮ID"/>
         <Label text="测量ID" GridPane.rowIndex="1"/>
         <Label text="备注" GridPane.rowIndex="2"/>
-        <Button text="查看详情" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+        <Button text="查看被动轮" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
         <Button fx:id="drivedGearSelectButton" text="选择被动齿轮" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
         <TextField fx:id="drivedGearIdField" GridPane.columnIndex="1" editable="false"/>
         <TextField fx:id="drivedMeasureIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>

@@ -3,10 +3,7 @@ package com.spartajet.gear.match.style
 import javafx.scene.control.ContentDisplay
 import javafx.scene.layout.BorderStrokeStyle
 import javafx.scene.paint.Color
-import tornadofx.Stylesheet
-import tornadofx.box
-import tornadofx.cssclass
-import tornadofx.px
+import tornadofx.*
 
 /**
  * @description
@@ -35,7 +32,7 @@ class MainViewStyle : Stylesheet() {
         function_menu_tabpane {
             borderStyle += (BorderStrokeStyle.SOLID)
             borderColor += box(Color.GREY)
-            prefWidth = 190.px
+            prefWidth = 115.px
         }
     }
 }

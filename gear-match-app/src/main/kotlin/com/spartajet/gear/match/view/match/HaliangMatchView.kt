@@ -14,6 +14,8 @@ import org.jfree.chart.JFreeChart
 import org.jfree.chart.plot.PlotOrientation
 import org.jfree.data.xy.XYSeriesCollection
 import tornadofx.*
+import java.awt.Color
+import java.awt.Font
 import java.io.File
 
 /**
@@ -82,13 +84,13 @@ class HaliangMatchView : View("哈量配对") {
             fieldset("齿面选择") {
                 field("主动齿轮", Orientation.VERTICAL) {
                     vbox {
-                        radiobutton("左齿面", drivingToggleGroup, "DrivingL") { }
+                        radiobutton("左齿面", drivingToggleGroup, "DrivingL") { isSelected = true }
                         radiobutton("右齿面", drivingToggleGroup, "DrivingR") { }
                     }
                 }
                 field("被动齿轮", Orientation.VERTICAL) {
                     vbox {
-                        radiobutton("左齿面", drivedToggleGroup, "DrivedL") { }
+                        radiobutton("左齿面", drivedToggleGroup, "DrivedL") { isSelected = true }
                         radiobutton("右齿面", drivedToggleGroup, "DrivedR") { }
                     }
                 }
@@ -100,14 +102,34 @@ class HaliangMatchView : View("哈量配对") {
             widthProperty().bind(mainGridPane.widthProperty().subtract(320))
             heightProperty().bind(mainGridPane.heightProperty().multiply(0.3))
         }
+        with(drivingGearChart) {
+            backgroundPaint = Color.white
+            title.visible = false
+            with(xyPlot) {
+                //                backgroundPaint = Color.white
+            }
+
+        }
         with(drivedGearCanvas) {
             widthProperty().bind(mainGridPane.widthProperty().subtract(320))
             heightProperty().bind(mainGridPane.heightProperty().multiply(0.3))
+        }
+        with(drivedGearChart) {
+            title.visible = false
         }
         with(matchCanvas) {
             widthProperty().bind(mainGridPane.widthProperty().subtract(170))
             heightProperty().bind(mainGridPane.heightProperty().multiply(0.4))
         }
+        with(matchChart) {
+            title.font = Font(title.font.fontName, title.font.style, 15)
+        }
+
+
+
+
+
+
 
         with(mainGridPane) {
             add(drivingGearCanvas, 1, 0)
