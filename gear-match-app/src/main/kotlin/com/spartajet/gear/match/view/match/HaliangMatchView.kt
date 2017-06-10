@@ -2,21 +2,15 @@ package com.spartajet.gear.match.view.match
 
 import com.google.gson.Gson
 import com.spartajet.gear.match.base.hl.Haliang
-import com.spartajet.gear.match.view.utility.JFreeChartCanvas
 import javafx.geometry.Orientation
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import javafx.scene.control.ToggleGroup
 import javafx.scene.layout.GridPane
-import org.jfree.chart.ChartFactory
-import org.jfree.chart.JFreeChart
-import org.jfree.chart.plot.PlotOrientation
-import org.jfree.data.xy.XYSeriesCollection
 import tornadofx.*
-import java.awt.Color
-import java.awt.Font
 import java.io.File
+
 
 /**
  * @description
@@ -43,17 +37,7 @@ class HaliangMatchView : View("哈量配对") {
     val mainGridPane: GridPane by fxid("mainGridPane")
 
 
-    val drivingChartSeries = XYSeriesCollection()
-    val drivedChartSeries = XYSeriesCollection()
-    val matchChartSeries = XYSeriesCollection()
 
-    val drivingGearChart: JFreeChart = ChartFactory.createXYLineChart("主动轮", "角度", "误差", drivingChartSeries, PlotOrientation.VERTICAL, true, true, false)
-    val drivedGearChart: JFreeChart = ChartFactory.createXYLineChart("被动轮", "角度", "误差", drivedChartSeries, PlotOrientation.VERTICAL, true, true, false)
-    val matchChart: JFreeChart = ChartFactory.createXYLineChart("齿轮配对", "角度", "误差", matchChartSeries, PlotOrientation.VERTICAL, true, true, false)
-
-    val drivingGearCanvas = JFreeChartCanvas(drivingGearChart)
-    val drivedGearCanvas = JFreeChartCanvas(drivedGearChart)
-    val matchCanvas = JFreeChartCanvas(matchChart)
 
     override val root: GridPane by fxml("/view/match/HaliangMatch.fxml")
 
@@ -96,46 +80,6 @@ class HaliangMatchView : View("哈量配对") {
                 }
             }
         }
-
-
-        with(drivingGearCanvas) {
-            widthProperty().bind(mainGridPane.widthProperty().subtract(320))
-            heightProperty().bind(mainGridPane.heightProperty().multiply(0.3))
-        }
-        with(drivingGearChart) {
-            backgroundPaint = Color.white
-            title.visible = false
-            with(xyPlot) {
-                //                backgroundPaint = Color.white
-            }
-
-        }
-        with(drivedGearCanvas) {
-            widthProperty().bind(mainGridPane.widthProperty().subtract(320))
-            heightProperty().bind(mainGridPane.heightProperty().multiply(0.3))
-        }
-        with(drivedGearChart) {
-            title.visible = false
-        }
-        with(matchCanvas) {
-            widthProperty().bind(mainGridPane.widthProperty().subtract(170))
-            heightProperty().bind(mainGridPane.heightProperty().multiply(0.4))
-        }
-        with(matchChart) {
-            title.font = Font(title.font.fontName, title.font.style, 15)
-        }
-
-
-
-
-
-
-
-        with(mainGridPane) {
-            add(drivingGearCanvas, 1, 0)
-            add(drivedGearCanvas, 1, 1)
-            add(matchCanvas, 0, 2, 2, 1)
-        }
         with(matchParaGridPane) {
             add(setForm, 0, 1)
         }
@@ -152,6 +96,5 @@ class HaliangMatchView : View("哈量配对") {
         drivedMeasureIdField.text = drivedGear.id.toString()
         drivedNoteField.text = drivedGear.note
     }
-
 
 }

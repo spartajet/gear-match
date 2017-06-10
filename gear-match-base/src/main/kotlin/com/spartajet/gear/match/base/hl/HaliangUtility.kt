@@ -38,3 +38,17 @@ fun resample(thread: Int, interval: Double, xArray: Array<Double>, yArray: Array
     result.forEachIndexed { index, d -> result[index] = d - average }
     return result
 }
+
+fun offset(array: Array<Double>, z: Int): Int {
+    val pointPerTeeth = array.size / z
+    val firstTeethPoints: Array<Double> = array.copyOfRange(0, pointPerTeeth)
+    val offset = firstTeethPoints.indexOf(firstTeethPoints.min())
+    return offset
+}
+
+fun initialize(array: Array<Double>, offset: Int): Array<Double> {
+    val beforeArray = array.take(offset)
+    val afterArray = array.takeLast(array.size - offset)
+    val result = (afterArray + beforeArray).toTypedArray()
+    return result
+}
