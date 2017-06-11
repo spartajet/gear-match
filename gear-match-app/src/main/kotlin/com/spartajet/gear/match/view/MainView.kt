@@ -71,6 +71,7 @@ class MainView : View("齿轮配对系统") {
                     }
                 }
                 tab("贝叶斯配对") { }
+                tab("振动噪声") { }
             }
         }
         center = mainTabPane
