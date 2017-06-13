@@ -10,10 +10,10 @@ package com.spartajet.gear.match.base.gie
  * GIE图形的点
  *
  * @param index 索引
- * @param xValue x 坐标的值
- * @param yValue y 坐标的值
+ * @param x x 坐标的值
+ * @param y y 坐标的值
  */
-data class Point(val index: Int, val xValue: Double, val yValue: Double)
+data class Point(val index: Int, val x: Double, val y: Double)
 
 /**
  * 节点对象
@@ -47,3 +47,10 @@ data class GIEStackPoint(val index: Int, val x: Double, val values: Array<Double
  * 齿轮整体误差
  */
 data class GIESeries(val points: Array<GIEStackPoint>, val pitches: Array<Pitch>)
+
+/**
+ * GIE 中啮合区域
+ * @param haRegion 齿顶区角度
+ * @param hfRegion 齿根区角度
+ */
+data class GIEMeshRegion(val haRegion: Double, val hfRegion: Double)

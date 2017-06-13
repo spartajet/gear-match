@@ -1,11 +1,20 @@
 package com.spartajet.gear.match.base.hl
 
+import com.spartajet.gear.match.base.gie.*
+import com.spartajet.gear.match.base.utility.round
+
 /**
  * @description
  * @create 2017-06-04 下午9:33
  * @email spartajet.guo@gmail.com
  */
-
+/**
+ * 重采样
+ * @param thread 系列，三头蜗杆
+ * @param interval 采样间隔
+ * @param xArray x 坐标的值数组
+ * @param yArray y 坐标的值数组
+ */
 fun resample(thread: Int, interval: Double, xArray: Array<Double>, yArray: Array<Double>): Array<Double> {
     val size: Int = ((360 * thread) / interval).toInt()
     var cursor: Int = 0
@@ -39,6 +48,11 @@ fun resample(thread: Int, interval: Double, xArray: Array<Double>, yArray: Array
     return result
 }
 
+/**
+ * 计算第一个齿的偏移值，曲线的开始位置是最低点
+ * @param array 数组
+ * @param z teeth number
+ */
 fun offset(array: Array<Double>, z: Int): Int {
     val pointPerTeeth = array.size / z
     val firstTeethPoints: Array<Double> = array.copyOfRange(0, pointPerTeeth)
@@ -46,9 +60,171 @@ fun offset(array: Array<Double>, z: Int): Int {
     return offset
 }
 
+/**
+ * 初始化采样点，将曲线开始点转换为齿的开始点
+ */
 fun initialize(array: Array<Double>, offset: Int): Array<Double> {
     val beforeArray = array.take(offset)
     val afterArray = array.takeLast(array.size - offset)
     val result = (afterArray + beforeArray).toTypedArray()
     return result
 }
+
+/**
+ * 计算三个单独的序列
+ */
+fun calculateGIEThreadSeries(interval: Double, array: Array<Double>): Array<GIEThreadSeries> {
+    val points_L_00: MutableList<Point> = mutableListOf()
+    val points_L_01: MutableList<Point> = mutableListOf()
+    val points_L_02: MutableList<Point> = mutableListOf()
+
+    for (index in 0..3599) {
+        points_L_00.add(Point(index, index * interval, array[index]))
+        points_L_01.add(Point(index, index * interval, array[3600 + index]))
+        points_L_02.add(Point(index, index * interval, array[7200 + index]))
+    }
+    return arrayOf(GIEThreadSeries(0, points_L_00.toTypedArray()), GIEThreadSeries(1, points_L_01.toTypedArray()), GIEThreadSeries(2, points_L_02.toTypedArray()))
+}
+
+
+/**
+ * 计算 GIE 的叠加序列
+ */
+fun calculateGIEStackPoints(interval: Double, gieThreadSeries: Array<GIEThreadSeries>): Array<GIEStackPoint> {
+    val gieStackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    (0..3599).mapTo(gieStackPoints) {
+        GIEStackPoint(it, it * interval, arrayOf(gieThreadSeries[0].points[it].y, gieThreadSeries[1].points[it].y, gieThreadSeries[2].points[it].y))
+    }
+    return gieStackPoints.toTypedArray()
+}
+
+
+/**
+ * 计算节点
+ */
+fun calculatePitches(firstPitch: Double, interval: Double, z: Int, array: Array<Double>): Array<Pitch> {
+    val pitches: MutableList<Pitch> = mutableListOf()
+    val firstPitch_L = firstPitch.round(1)
+    val firstPitchIndex_L = (firstPitch_L / interval).toInt()
+    (0..z - 1).mapTo(pitches) {
+        var tempIndex: Int = firstPitchIndex_L + (10800 / z * it)
+        tempIndex = if (tempIndex >= 10800) tempIndex - 10800 else tempIndex
+        val x = tempIndex * interval
+        val tempXValue = when (x) {
+            in 0.0..359.999 -> x
+            in 360.0..719.999 -> x - 360.0
+            else -> x - 720.0
+        }
+        val tempYValue = array[tempIndex]
+        val thread = when (tempIndex) {
+            in 0..3599 -> 0
+            in 3600..7199 -> 1
+            else -> 2
+
+        }
+        val pitchIndex = when (tempIndex) {
+            in 0..3599 -> tempIndex
+            in 3600..7199 -> tempIndex - 3600
+            else -> tempIndex - 7200
+        }
+        Pitch(pitchIndex, thread, it, Point(pitchIndex, tempXValue, tempYValue))
+    }
+    //找到节点后排序
+    pitches.sortBy { it.point.index }
+    //排序后重新标志节点顺序
+    pitches.forEachIndexed { index, pitch -> pitch.teethId = index }
+    return pitches.toTypedArray()
+}
+
+/**
+ * 计算 GIE 中啮合部分
+ * @param haliang haliang 的测量数据
+ * @param a 中心距
+ */
+fun calculateMeshRegion(haliang: Haliang, a: Double): GIEMeshRegion {
+    val mk2 = haliang.mn - (a - haliang.d / 2 - haliang.d2 / 2)
+    val om = haliang.d2 / 2 - mk2
+    val mk3 = mk2 / Math.tan(haliang.alpha2 / 180 * Math.PI)
+    val phi5 = Math.atan(mk3 / om)
+    val rx = mk3 / Math.sin(phi5)
+    val alphax = Math.acos(haliang.d2 * Math.cos(haliang.alpha2 * Math.PI / 180.0) / 2 / rx)
+    val theta2 = Math.tan(alphax) - alphax
+    val alpha1 = Math.acos(haliang.d2 * Math.cos(haliang.alpha2 * Math.PI / 180.0) / haliang.d2)
+    val theta1 = Math.tan(alpha1) - alpha1
+    var phi2 = phi5 + theta1 - theta2
+    val alpha0 = Math.acos(haliang.d2 * Math.cos(haliang.alpha2 * Math.PI / 180.0) / haliang.da2)
+    val theta0 = Math.tan(alpha0) - alpha0
+    val phi6 = Math.acos(haliang.d2 * Math.cos(haliang.alpha2 * Math.PI / 180) / haliang.da2)
+    val phi3 = Math.acos(haliang.d2 * Math.cos(haliang.alpha2 * Math.PI / 180) / 2 / rx)
+    var phi1 = theta0 + phi6 - phi5 - phi3 - theta1
+    phi1 *= (180 / Math.PI) //齿顶区
+    phi2 *= (180 / Math.PI) //齿根区
+    return GIEMeshRegion(phi1, phi2)
+}
+
+
+/**
+ * 操作 GIE 中的啮合部分，将啮合部分复制到新的 GIESeries 中
+ * @param pitches 节点对象
+ * @param gieMeshRegion 啮合范围对象
+ * @param interval 重采样间隔
+ * @param gieSeries 初始的测量数据序列
+ *
+ * @return 啮合的 GIESeries 对象
+ */
+fun operateMeshRegion(pitches: Array<Pitch>, gieMeshRegion: GIEMeshRegion, interval: Double, gieSeries: GIESeries): GIESeries {
+    val meshStackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    (0..3599).mapTo(meshStackPoints) {
+        GIEStackPoint(it, it * interval, arrayOf(-1000.0, -1000.0, -1000.0))
+    }
+    val meshGIESeries: GIESeries = GIESeries(meshStackPoints.toTypedArray(), pitches)
+    pitches.forEachIndexed { index, pitch ->
+        val pitchThread = pitch.thread
+        val pitchIndex = pitch.index
+        val x = pitch.point.x
+        val haLength = (gieMeshRegion.haRegion.round(1) / interval).toInt()
+        val hfLength = (gieMeshRegion.hfRegion.round(1) / interval).toInt()
+        val startThread = if (pitchIndex - hfLength >= 0) pitchThread else lastThread(pitchThread)
+        val startIndex = if (startThread == pitchThread) pitchIndex - hfLength else 3599 - (hfLength - pitchIndex)
+        val endThread = if (pitchIndex + haLength <= 3599) pitchThread else nextThread(pitchThread)
+        val endIndex = if (endThread == pitchThread) pitchIndex + haLength else haLength - (3599 - pitchIndex)
+        //开始处理齿根区
+        if (startThread != pitchThread) {
+            (startIndex..3599).forEach {
+                meshGIESeries.points[it].values[startThread] = gieSeries.points[it].values[startThread]
+            }
+            (0..pitchIndex).forEach {
+                meshGIESeries.points[it].values[pitchThread] = gieSeries.points[it].values[pitchThread]
+            }
+        } else {
+            (startIndex..pitchIndex).forEach {
+                meshGIESeries.points[it].values[pitchThread] = gieSeries.points[it].values[pitchThread]
+            }
+        }
+        //开始处理齿顶区
+        if (endThread != pitchThread) {
+            (0..endIndex).forEach {
+                meshGIESeries.points[it].values[endThread] = gieSeries.points[it].values[endThread]
+            }
+            ((pitchIndex - 1)..3599).forEach {
+                meshGIESeries.points[it].values[pitchThread] = gieSeries.points[it].values[pitchThread]
+            }
+        } else {
+            ((pitchIndex - 1)..endIndex).forEach {
+                meshGIESeries.points[it].values[pitchThread] = gieSeries.points[it].values[pitchThread]
+            }
+        }
+
+    }
+    return meshGIESeries
+}
+
+/**
+ * 上一个序列
+ */
+fun lastThread(index: Int) = if (index == 0) 2 else if (index == 1) 0 else 1
+
+/**
+ * 下一个序列
+ */
+fun nextThread(index: Int) = if (index == 0) 1 else if (index == 1) 2 else 0

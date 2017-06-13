@@ -42,6 +42,7 @@ class HaliangMatchView : View("哈量配对") {
     val matchParaGridPane: GridPane by fxid("matchParaGridPane")
     val mainGridPane: GridPane by fxid("mainGridPane")
     val CalculatePitchButton: Button by fxid("CalculatePitchButton")
+    val CalculateMeshRegionButton: Button by fxid("CalculateMeshRegionButton")
 
     val drivingGearChart: LineChart<Number, Number> by fxid("drivingGearChart")
     val drivedGearChart: LineChart<Number, Number> by fxid("drivedGearChart")
@@ -106,15 +107,18 @@ class HaliangMatchView : View("哈量配对") {
                 }
             }
         }
-        with(matchParaGridPane)
-        {
+        with(matchParaGridPane) {
             add(setForm, 0, 1, 1, 2)
         }
-        with(CalculatePitchButton)
-        {
+        with(CalculatePitchButton) {
             action {
                 matchStrategy.extractPitches()
                 showPitches()
+            }
+        }
+        with(CalculateMeshRegionButton) {
+            action {
+                calculateMeshRegion()
             }
         }
     }
@@ -131,12 +135,12 @@ class HaliangMatchView : View("哈量配对") {
             data.clear()
 //            createSymbols = false
             isLegendVisible = true
-            val gieThreadSeries_L = drivingGear.gieThreadSeries_L
+            val gieThreadSeries_L = matchStrategy.gieThreadSeries_Driving_L
             gieThreadSeries_L.forEachIndexed { index, gieThreadSeries ->
                 val XYSeries = XYChart.Series<Number, Number>()
                 XYSeries.name = "GIE_${index + 1}"
-                gieThreadSeries.points.forEachIndexed { index, point ->
-                    if (index % 10 == 0) XYSeries.data.add(XYChart.Data(point.xValue, point.yValue))
+                gieThreadSeries.points.forEachIndexed { index, (_, x, y) ->
+                    if (index % 10 == 0) XYSeries.data.add(XYChart.Data(x, y))
                 }
                 data.add(XYSeries)
             }
@@ -166,11 +170,11 @@ class HaliangMatchView : View("哈量配对") {
             data.clear()
 //            createSymbols = false
             isLegendVisible = true
-            drivedGear.gieThreadSeries_L.forEachIndexed { index, gieThreadSeries ->
+            matchStrategy.gieThreadSeries_Drived_L.forEachIndexed { index, gieThreadSeries ->
                 val XYSeries = XYChart.Series<Number, Number>()
                 XYSeries.name = "GIE_${index + 1}"
-                gieThreadSeries.points.forEachIndexed { index, point ->
-                    if (index % 10 == 0) XYSeries.data.add(XYChart.Data(point.xValue, point.yValue))
+                gieThreadSeries.points.forEachIndexed { index, (_, x, y) ->
+                    if (index % 10 == 0) XYSeries.data.add(XYChart.Data(x, y))
                 }
                 data.add(XYSeries)
             }
@@ -193,19 +197,62 @@ class HaliangMatchView : View("哈量配对") {
      */
     private fun showPitches() {
 
-        val pitches_Driving_L = this.drivingGear.pitches_L
-        val pitches_Drived_L = this.drivedGear.pitches_L
+        val pitches_Driving_L = this.matchStrategy.pitches_Driving_L
+        val pitches_Drived_L = this.matchStrategy.pitches_Drived_L
         val XYSeries_Driving_Pitch = XYChart.Series<Number, Number>()
         XYSeries_Driving_Pitch.name = "节点"
-        pitches_Driving_L.forEachIndexed { index, pitch ->
-            XYSeries_Driving_Pitch.data.add(XYChart.Data(pitch.point.xValue, pitch.point.yValue))
+        pitches_Driving_L.forEachIndexed { _, pitch ->
+            XYSeries_Driving_Pitch.data.add(XYChart.Data(pitch.point.x, pitch.point.y))
         }
         this.drivingGearChart.data.add(XYSeries_Driving_Pitch)
         val XYSeries_Drived_Pitch = XYChart.Series<Number, Number>()
         XYSeries_Drived_Pitch.name = "节点"
-        pitches_Drived_L.forEachIndexed { index, pitch ->
-            XYSeries_Drived_Pitch.data.add(XYChart.Data(pitch.point.xValue, pitch.point.yValue))
+        pitches_Drived_L.forEachIndexed { _, pitch ->
+            XYSeries_Drived_Pitch.data.add(XYChart.Data(pitch.point.x, pitch.point.y))
         }
         this.drivedGearChart.data.add(XYSeries_Drived_Pitch)
+    }
+
+    /**
+     * 处理啮合部分
+     */
+    private fun calculateMeshRegion() {
+        matchStrategy.extractMeshRegion()
+        val GIESeries_Mesh_Driving_L = matchStrategy.GIESeries_Mesh_Driving_L
+        val GIESeries_Mesh_Drived_L = matchStrategy.GIESeries_Mesh_Drived_L
+        with(drivingGearChart) {
+            data.remove(0, 3)
+            val gie_mesh_1 = XYChart.Series<Number, Number>()
+            gie_mesh_1.name = "GIE_MESH_1"
+            val gie_mesh_2 = XYChart.Series<Number, Number>()
+            gie_mesh_2.name = "GIE_MESH_2"
+            val gie_mesh_3 = XYChart.Series<Number, Number>()
+            gie_mesh_3.name = "GIE_MESH_3"
+            matchStrategy.GIESeries_Mesh_Driving_L.points.forEach {
+                if (it.index % 10 == 0) {
+                    gie_mesh_1.data.add(XYChart.Data(it.x, it.values[0]))
+                    gie_mesh_2.data.add(XYChart.Data(it.x, it.values[1]))
+                    gie_mesh_3.data.add(XYChart.Data(it.x, it.values[2]))
+                }
+            }
+            data.addAll(gie_mesh_1, gie_mesh_2, gie_mesh_3)
+        }
+        with(drivedGearChart) {
+            data.remove(0, 3)
+            val gie_mesh_1 = XYChart.Series<Number, Number>()
+            gie_mesh_1.name = "GIE_MESH_1"
+            val gie_mesh_2 = XYChart.Series<Number, Number>()
+            gie_mesh_2.name = "GIE_MESH_2"
+            val gie_mesh_3 = XYChart.Series<Number, Number>()
+            gie_mesh_3.name = "GIE_MESH_3"
+            matchStrategy.GIESeries_Mesh_Drived_L.points.forEach {
+                if (it.index % 10 == 0) {
+                    gie_mesh_1.data.add(XYChart.Data(it.x, it.values[0]))
+                    gie_mesh_2.data.add(XYChart.Data(it.x, it.values[1]))
+                    gie_mesh_3.data.add(XYChart.Data(it.x, it.values[2]))
+                }
+            }
+            data.addAll(gie_mesh_1, gie_mesh_2, gie_mesh_3)
+        }
     }
 }
