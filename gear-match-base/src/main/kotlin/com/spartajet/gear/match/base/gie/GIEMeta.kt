@@ -22,7 +22,7 @@ data class Point(val index: Int, val x: Double, val y: Double)
  * @param teethId 轮齿序号
  * @param point 节点所在的点对象
  */
-data class Pitch(val index: Int, val thread: Int, var teethId: Int, val point: Point)
+data class Pitch(var index: Int, val thread: Int, var teethId: Int, val point: Point)
 
 /**
  * GIE单个齿对象

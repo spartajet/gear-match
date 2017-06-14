@@ -181,7 +181,6 @@ fun operateMeshRegion(pitches: Array<Pitch>, gieMeshRegion: GIEMeshRegion, inter
     pitches.forEachIndexed { index, pitch ->
         val pitchThread = pitch.thread
         val pitchIndex = pitch.index
-        val x = pitch.point.x
         val haLength = (gieMeshRegion.haRegion.round(1) / interval).toInt()
         val hfLength = (gieMeshRegion.hfRegion.round(1) / interval).toInt()
         val startThread = if (pitchIndex - hfLength >= 0) pitchThread else lastThread(pitchThread)
@@ -214,17 +213,122 @@ fun operateMeshRegion(pitches: Array<Pitch>, gieMeshRegion: GIEMeshRegion, inter
                 meshGIESeries.points[it].values[pitchThread] = gieSeries.points[it].values[pitchThread]
             }
         }
-
     }
     return meshGIESeries
 }
 
 /**
+ * 计算参与啮合的 GIE 序列，最小公倍数扩充
+ * @param z 自身的齿数
+ * @param z2 另一个齿轮的齿数
+ * @param gieMeshSeries 提取出啮合区域的 GIE 序列
+ */
+fun GIESeries.calculateMatchGIESeries(z: Int, z2: Int, interval: Double): GIESeries {
+    val result = this.initialGIESeriesByPitch(interval) * ((z cm z2) / z)
+    return result
+}
+
+/**
+ * 根据节点位置来初始化 GIE 序列，将第一个节点放在开始位置
+ */
+fun GIESeries.initialGIESeriesByPitch(interval: Double): GIESeries {
+    val offset = this.pitches[0].index
+    val stackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    val pitches: MutableList<Pitch> = mutableListOf()
+    (0..3599).mapTo(stackPoints) {
+        var y0 = 0.0
+        var y1 = 0.0
+        var y2 = 0.0
+        if (it + offset <= 3599) {
+            y0 = this.points[it + offset].values[0]
+            y1 = this.points[it + offset].values[1]
+            y2 = this.points[it + offset].values[2]
+        } else {
+            y0 = this.points[it + offset - 3599].values[2]
+            y1 = this.points[it + offset - 3599].values[0]
+            y2 = this.points[it + offset - 3599].values[1]
+        }
+        GIEStackPoint(it, it * interval, arrayOf(y0, y1, y2))
+    }
+    this.pitches.forEach {
+        val index = it.index - offset
+        pitches.add(Pitch(index, it.thread, it.teethId, Point(index, it.point.x - offset * interval, it.point.y)))
+    }
+    return GIESeries(stackPoints.toTypedArray(), pitches.toTypedArray())
+}
+
+/**
+ * GIESeries 的相加，叠加
+ */
+operator fun GIESeries.plus(gieSeries: GIESeries): GIESeries {
+    val stackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    val pitches: MutableList<Pitch> = mutableListOf()
+    this.points.forEachIndexed { i, (index, x, values) ->
+        stackPoints.add(GIEStackPoint(index, x, arrayOf(values[0] + gieSeries.points[i].values[0], values[1] + gieSeries.points[i].values[1], values[2] + gieSeries.points[i].values[2])))
+    }
+    this.pitches.forEachIndexed { i, (index, thread, teethId, point) ->
+        pitches.add(Pitch(index, thread, teethId, Point(index, point.x, point.y + gieSeries.pitches[i].point.y)))
+    }
+    return GIESeries(stackPoints.toTypedArray(), pitches.toTypedArray())
+}
+
+/**
+ * GIESeries 的扩展
+ */
+operator fun GIESeries.times(timer: Int): GIESeries {
+    val stackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    val pitches: MutableList<Pitch> = mutableListOf()
+    for (i in 0..timer) {
+        val indexOffset = i * 3600
+        val xOffset = i * 360.0
+        val teethOffset = i * this.pitches.size
+        this.pitches.forEach {
+            pitches.add(Pitch(it.index + indexOffset, it.thread, it.teethId + teethOffset, Point(it.index + indexOffset, it.point.x + xOffset, it.point.y)))
+        }
+        this.points.forEach {
+            stackPoints.add(GIEStackPoint(it.index + indexOffset, it.x + xOffset, it.values.clone()))
+        }
+    }
+    return GIESeries(stackPoints.toTypedArray(), pitches.toTypedArray())
+}
+
+/**
+ * Common Divider 最小公约数
+ */
+infix fun Int.cd(int: Int): Int {
+    var a = this
+    var b = int
+    if (this < int) {
+        a += b
+        b = a - b
+        a -= b
+    }
+    return if (a % b == 0) b else a % b cd b
+}
+
+/**
+ * Common Multiple 最小公倍数
+ * @param int 另一个数
+ */
+infix fun Int.cm(int: Int) = this * int / (this cd int)
+
+
+/**
  * 上一个序列
  */
-fun lastThread(index: Int) = if (index == 0) 2 else if (index == 1) 0 else 1
+fun lastThread(index: Int) = when (index) {
+    0 -> 2
+    1 -> 0
+    2 -> 1
+    else -> 0
+}
 
 /**
  * 下一个序列
  */
-fun nextThread(index: Int) = if (index == 0) 1 else if (index == 1) 2 else 0
+fun nextThread(index: Int) = when (index) {
+    0 -> 1
+    1 -> 2
+    2 -> 0
+    else -> 0
+}

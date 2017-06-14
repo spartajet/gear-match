@@ -102,6 +102,23 @@ class HaliangMatchStrategy {
      */
     lateinit var GIESeries_Mesh_Drived_R: GIESeries
 
+    /**
+     * 主动轮左齿面配对序列
+     */
+    lateinit var GIESeries_Match_Driving_L: GIESeries
+    /**
+     * 主动轮右齿面配对序列
+     */
+    lateinit var GIESeries_Match_Driving_R: GIESeries
+    /**
+     * 被动轮左齿面配对序列
+     */
+    lateinit var GIESeries_Match_Drived_L: GIESeries
+    /**
+     * 被动轮右齿面配对序列
+     */
+    lateinit var GIESeries_Match_Drived_R: GIESeries
+
 
     /**
      * 预处理主动轮曲线，分成三段
@@ -147,6 +164,14 @@ class HaliangMatchStrategy {
         this.GIESeries_Mesh_Driving_R = operateMeshRegion(pitches_Driving_R, meshRegion_Driving, drivingGear.interval, GIESeries_Original_Driving_R)
         this.GIESeries_Mesh_Drived_L = operateMeshRegion(pitches_Drived_L, meshRegion_Drived, drivedGear.interval, GIESeries_Original_Drived_L)
         this.GIESeries_Mesh_Drived_R = operateMeshRegion(pitches_Drived_R, meshRegion_Drived, drivedGear.interval, GIESeries_Original_Drived_R)
+    }
+
+    /**
+     * 合成 GPIE 曲线
+     */
+    fun combineGPIE() {
+        this.GIESeries_Match_Driving_L = this.GIESeries_Mesh_Driving_L.calculateMatchGIESeries(drivingGear.z2, drivedGear.z2, drivingGear.interval)
+        this.GIESeries_Match_Drived_L = this.GIESeries_Mesh_Drived_L.calculateMatchGIESeries(drivedGear.z2, drivingGear.z2, drivedGear.interval)
 
     }
 
