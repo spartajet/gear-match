@@ -221,7 +221,7 @@ fun operateMeshRegion(pitches: Array<Pitch>, gieMeshRegion: GIEMeshRegion, inter
  * 计算参与啮合的 GIE 序列，最小公倍数扩充
  * @param z 自身的齿数
  * @param z2 另一个齿轮的齿数
- * @param gieMeshSeries 提取出啮合区域的 GIE 序列
+ * @param interval 采样间隔
  */
 fun GIESeries.calculateMatchGIESeries(z: Int, z2: Int, interval: Double): GIESeries {
     val result = this.initialGIESeriesByPitch(interval) * ((z cm z2) / z)
@@ -258,6 +258,28 @@ fun GIESeries.initialGIESeriesByPitch(interval: Double): GIESeries {
 }
 
 /**
+ * 以节点为中心，交换齿根齿顶
+ * @param radius 交换的半径，一般是 齿根方向的啮合部分，指的是点数
+ */
+fun GIESeries.reverse(radius: Int): GIESeries {
+    val stackPoints: MutableList<GIEStackPoint> = mutableListOf()
+    val pitches: MutableList<Pitch> = mutableListOf()
+    this.pitches.forEach {
+        pitches.add(Pitch(it.index, it.thread, it.teethId, Point(it.point.index, it.point.x, it.point.y)))
+    }
+    this.points.forEach {
+        stackPoints.add(GIEStackPoint(it.index, it.x, arrayOf(it.values[0], it.values[1], it.values[2])))
+    }
+    pitches.forEach {
+
+    }
+
+    return GIESeries(stackPoints.toTypedArray(), pitches.toTypedArray())
+
+
+}
+
+/**
  * GIESeries 的相加，叠加
  */
 operator fun GIESeries.plus(gieSeries: GIESeries): GIESeries {
@@ -273,7 +295,7 @@ operator fun GIESeries.plus(gieSeries: GIESeries): GIESeries {
 }
 
 /**
- * GIESeries 的扩展
+ * GIESeries 的扩充，最小公倍数
  */
 operator fun GIESeries.times(timer: Int): GIESeries {
     val stackPoints: MutableList<GIEStackPoint> = mutableListOf()
