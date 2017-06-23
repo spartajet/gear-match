@@ -1,0 +1,44 @@
+buildscript {
+    ext {
+        kotlin_version = '1.1.3'
+        spring_boot_version = '1.5.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
+    }
+}
+allprojects {
+    apply plugin: 'maven'
+    group = 'com.spartajet.gear'
+    version = '1.0'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'kotlin'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    dependencies {
+        compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: '1.1.3'
+        compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.1.3'
+    }
+}

@@ -2,7 +2,7 @@ package com.spartajet.gear.match.view.manager
 
 import com.github.pagehelper.PageHelper
 import com.google.gson.Gson
-import com.spartajet.gear.match.base.utility.SnowFlake
+import com.spartajet.gear.match.api.utility.SnowFlake
 import com.spartajet.gear.match.config.ParaConfig
 import com.spartajet.gear.match.mybatis.bean.Gear
 import com.spartajet.gear.match.mybatis.mapper.GearMapper

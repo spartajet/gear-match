@@ -1,0 +1,3 @@
+rootProject.name = 'gear-match'
+include 'gear-match-api'
+include 'gear-match-app'

@@ -1,8 +1,8 @@
 package com.spartajet.gear.match.view.match
 
 import com.google.gson.Gson
-import com.spartajet.gear.match.base.hl.Haliang
-import com.spartajet.gear.match.base.match.HaliangMatchStrategy
+import com.spartajet.gear.match.api.hl.Haliang
+import com.spartajet.gear.match.api.match.HaliangMatchStrategy
 import javafx.collections.FXCollections
 import javafx.geometry.Orientation
 import javafx.scene.chart.LineChart

@@ -1,10 +1,10 @@
 package com.spartajet.gear.match.view.manager
 
 import com.google.gson.Gson
-import com.spartajet.gear.match.base.hl.initialize
-import com.spartajet.gear.match.base.hl.offset
-import com.spartajet.gear.match.base.hl.resample
-import com.spartajet.gear.match.base.utility.SnowFlake
+import com.spartajet.gear.match.api.hl.initialize
+import com.spartajet.gear.match.api.hl.offset
+import com.spartajet.gear.match.api.hl.resample
+import com.spartajet.gear.match.api.utility.SnowFlake
 import com.spartajet.gear.match.mybatis.bean.Haliang
 import com.spartajet.gear.match.mybatis.mapper.HaliangMapper
 import javafx.scene.control.Button
@@ -220,7 +220,7 @@ class AddHaLiangDialog : Fragment("添加哈量测量结果") {
 
         val haliangBean = Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, pitchl, pitchr, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R)
 
-        val halingFile = com.spartajet.gear.match.base.hl.Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, pitchl, pitchr, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R, giel, gier, 0.1)
+        val halingFile = com.spartajet.gear.match.api.hl.Haliang(id, gearId, instrumentId, mn1, z1, d1, da1, df1, alpha1, beta1, sigma, mn2, z2, d2, da2, dM2, alpha2, beta2, x2, note, pitchl, pitchr, Fal, Class_FaL, ffaL, Class_ffaL, fHaL, Class_fHaL, fpL, Class_fpL, FpkL, Class_FpkL, FpL, Class_FpL, fuL, Class_fuL, FaR, Class_FaR, ffaR, Class_ffaR, fHaR, Class_fHaR, fpR, Class_fpR, FpkR, Class_FpkR, FpR, Class_FpR, fuR, Class_fuR, Fr, Class_Fr, Rs, Class_Rs, FisL, Class_FisL, fis_max_L, Class_fis_max_L, FisR, Class_FisR, fis_max_R, Class_fis_max_R, giel, gier, 0.1)
 
         val haliangFileString = Gson().toJson(halingFile)
 

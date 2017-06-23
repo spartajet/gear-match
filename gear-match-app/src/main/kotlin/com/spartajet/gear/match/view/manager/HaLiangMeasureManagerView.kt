@@ -75,7 +75,7 @@ class HaLiangMeasureManagerView : View() {
         if (haliang == null) return
         val file: File = File("/Users/spartajet/Documents/gear_match/haliang/${haliang.id}.hl")
         val fileString = file.readText()
-        val hlfile = Gson().fromJson(fileString, com.spartajet.gear.match.base.hl.Haliang::class.java)
+        val hlfile = Gson().fromJson(fileString, com.spartajet.gear.match.api.hl.Haliang::class.java)
         val giel = hlfile.giel
         val gier = hlfile.gier
         with(chart) {

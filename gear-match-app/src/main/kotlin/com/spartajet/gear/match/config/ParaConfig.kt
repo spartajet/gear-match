@@ -1,6 +1,6 @@
 package com.spartajet.gear.match.config
 
-import com.spartajet.gear.match.base.utility.SnowFlake
+import com.spartajet.gear.match.api.utility.SnowFlake
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
